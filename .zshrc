@@ -39,13 +39,4 @@ plugins=(bundler colorize git git-flow rails rake-fast rbenv sublime)
 source $ZSH/oh-my-zsh.sh
 
 # fzf
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-######################## Not sure if useful #########################
-
-# Load rbenv automatically
-# eval "$(rbenv init -)"
-
-
-# PROJECT_PATHS=(~/Dev)
-
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
