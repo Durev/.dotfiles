@@ -4,6 +4,9 @@ export DOTFILES=$HOME/.dotfiles
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+# To improve - There's a better way to do that
+source $DOTFILES/aliases.zsh
+
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # Using https://github.com/denysdovhan/spaceship-prompt
 ZSH_THEME="spaceship"
@@ -36,7 +39,7 @@ plugins=(bundler colorize git git-flow rails rake-fast rbenv sublime)
 source $ZSH/oh-my-zsh.sh
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ######################## Not sure if useful #########################
 
