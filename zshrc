@@ -4,8 +4,12 @@ export DOTFILES=$HOME/.dotfiles
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# To improve - There's a better way to do that
+# Sourcing of other files
 source $DOTFILES/aliases.zsh
+
+# Disable flow control commands (keeps C-s from freezing everything)
+stty start undef
+stty stop undef
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # Using https://github.com/denysdovhan/spaceship-prompt
