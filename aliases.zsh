@@ -12,6 +12,7 @@ alias rrg="rr | grep"
 
 # rubocop
 alias ra="rubocop -a"
+alias rag="git status --porcelain | cut -c4- | xargs rubocop -a"
 
 # bundler
 alias bel="BUNDLE_GEMFILE='private/LocalGemfile' bundle exec"
