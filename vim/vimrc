@@ -18,7 +18,7 @@ nmap j gj
 nmap k gk
 
 " Rapid editing of vimrc
-nmap <leader>vr :sp $MYVIMRC<cr>
+nmap <leader>vr :tabnew $MYVIMRC<cr>
 nmap <leader>so :source $MYVIMRC<cr>
 
 " Ain't nobody got time for Esc
@@ -32,7 +32,7 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 set ruler                      " show the cursor position all the time
 set splitbelow                 " Open new split panes to bottom
 set splitright                 " Open new split panes to right
-" set directory=~/.tmp           " Don't clutter dirs up with swp and tmp files
+set directory=$HOME/.vim/tmp   " Don't clutter dirs up with swp and tmp files
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -53,6 +53,8 @@ Plug 'tpope/vim-repeat'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-dispatch'
 Plug 'nanotech/jellybeans.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-rails'
 call plug#end()
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
@@ -80,4 +82,3 @@ if has('termguicolors') && &termguicolors
 endif
 
 colorscheme jellybeans
-
