@@ -1,0 +1,18 @@
+" gvimrc
+
+set guifont=Menlo:h15
+
+let g:jellybeans_overrides = {
+\    'background': { 'guibg': '1F2937' },
+\}
+
+set background=dark
+
+" Use Cmd + P for CtrlP
+map <C-p> :CtrlP<cr>
+map <D-p> :CtrlP<cr>
+
+if has('gui_macvim')
+  " This removes the Cmd-P binding from 'Print':
+  macmenu &File.Print key=<nop>
+endif

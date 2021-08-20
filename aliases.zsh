@@ -9,6 +9,7 @@ alias gfrf="git flow release finish"
 
 # rails
 alias rrg="rr | grep"
+alias dbmigrate="bundle exec rake db:migrate db:rollback && bundle exec rake db:migrate db:test:prepare"
 
 # rubocop
 alias ra="rubocop -a"

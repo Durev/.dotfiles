@@ -1,7 +1,5 @@
 " Vimrc
 
-syntax on
-
 " ======= Mappings =======
 " Leader key
 let mapleader = "\<Space>"
@@ -13,7 +11,7 @@ nmap 0 ^
 nmap <C-s> :w<cr>
 imap <C-s> <esc>:w<cr>
 
-" Move up and down by visible lines if current line is wrapped 
+" Move up and down by visible lines if current line is wrapped
 nmap j gj
 nmap k gk
 
@@ -25,9 +23,24 @@ nmap <leader>so :source $MYVIMRC<cr>
 imap jk <esc>
 imap kj <esc>
 
+" Jump to left/right split
+nmap <leader><Left> <C-w>h
+nmap <leader><Right> <C-w>l
+
+" Ruby motion
+nmap <leader>d [m
+nmap <leader>e ]M
+nmap <leader>E [M
+nmap <leader>D ]m
+
 " ======= Options =======
+syntax on                      " Enable syntax highlighting
+filetype on                    " Enable filetype detection
+filetype indent on             " Enable filetype-specific indenting
+filetype plugin on             " Enable filetype-specific plugins
+
 set number
-set nocompatible
+set nocompatible               " no need for vi compatibility
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set ruler                      " show the cursor position all the time
 set splitbelow                 " Open new split panes to bottom
@@ -41,8 +54,8 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " Auto-install vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " plugins
@@ -55,6 +68,9 @@ Plug 'tpope/vim-dispatch'
 Plug 'nanotech/jellybeans.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-endwise'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
@@ -67,11 +83,14 @@ map <Leader>s :w<cr> :call RunNearestSpec()<cr>
 map <Leader>l :w<cr> :call RunLastSpec()<cr>
 
 let g:rspec_runner = "os_x_iterm2"
-let g:rspec_command = "Dispatch rspec {spec}"
+" TODO: Fix this for MacVim
+" let g:rspec_command = "Dispatch rspec {spec}"
+let g:rspec_command = "bundle exec rspec {spec}"
+
 
 " Color scheme - To improve
 if (has('termguicolors'))
-  set termguicolors
+	set termguicolors
 endif
 
 let g:jellybeans_overrides = {
