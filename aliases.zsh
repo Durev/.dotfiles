@@ -18,5 +18,8 @@ alias rag="git status --porcelain | cut -c4- | xargs rubocop -a"
 # bundler
 alias bel="BUNDLE_GEMFILE='private/LocalGemfile' bundle exec"
 
+# navigation
+alias dotfiles="cd $DOTFILES"
+
 # For private aliases
 [ -f $DOTFILES/aliases.local.zsh ] && source $DOTFILES/aliases.local.zsh

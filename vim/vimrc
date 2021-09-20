@@ -46,6 +46,7 @@ set ruler                      " show the cursor position all the time
 set splitbelow                 " Open new split panes to bottom
 set splitright                 " Open new split panes to right
 set directory=$HOME/.vim/tmp   " Don't clutter dirs up with swp and tmp files
+set updatetime=100             " Refresh gutter and whatnot every 100ms
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -71,6 +72,7 @@ Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
+Plug 'Raimondi/delimitMate'
 call plug#end()
 
 " Make CtrlP use ag for listing the files. Way faster and no useless files.
@@ -83,10 +85,11 @@ map <Leader>s :w<cr> :call RunNearestSpec()<cr>
 map <Leader>l :w<cr> :call RunLastSpec()<cr>
 
 let g:rspec_runner = "os_x_iterm2"
-" TODO: Fix this for MacVim
-" let g:rspec_command = "Dispatch rspec {spec}"
-let g:rspec_command = "bundle exec rspec {spec}"
+let g:rspec_command = "Dispatch rspec {spec}"
 
+" gitgutter
+nmap <leader>hn <Plug>(GitGutterNextHunk)
+nmap <leader>hl <Plug>(GitGutterPrevHunk)
 
 " Color scheme - To improve
 if (has('termguicolors'))
@@ -101,3 +104,6 @@ if has('termguicolors') && &termguicolors
 endif
 
 colorscheme jellybeans
+
+" gitgutter colors
+highlight GitGutterDelete guifg=#E74C3C

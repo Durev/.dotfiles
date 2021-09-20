@@ -1,5 +1,6 @@
 " gvimrc
 
+" colorscheme & UI
 set guifont=Menlo:h15
 
 let g:jellybeans_overrides = {
@@ -7,6 +8,12 @@ let g:jellybeans_overrides = {
 \}
 
 set background=dark
+
+" gitgutter colors
+highlight GitGutterDelete guifg=#E74C3C
+
+" rspec.vim
+let g:rspec_command = "bundle exec rspec {spec}" " cannot use Dispatch
 
 " Use Cmd + P for CtrlP
 map <C-p> :CtrlP<cr>
