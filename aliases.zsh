@@ -21,5 +21,8 @@ alias bel="BUNDLE_GEMFILE='private/LocalGemfile' bundle exec"
 # navigation
 alias dotfiles="cd $DOTFILES"
 
+# homebrew
+alias brewinstall="HOMEBREW_NO_AUTO_UPDATE=1 brew install"
+
 # For private aliases
 [ -f $DOTFILES/aliases.local.zsh ] && source $DOTFILES/aliases.local.zsh

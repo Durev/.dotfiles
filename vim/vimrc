@@ -39,7 +39,8 @@ filetype on                    " Enable filetype detection
 filetype indent on             " Enable filetype-specific indenting
 filetype plugin on             " Enable filetype-specific plugins
 
-set number
+set hidden
+set number relativenumber
 set nocompatible               " no need for vi compatibility
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set ruler                      " show the cursor position all the time
@@ -47,6 +48,9 @@ set splitbelow                 " Open new split panes to bottom
 set splitright                 " Open new split panes to right
 set directory=$HOME/.vim/tmp   " Don't clutter dirs up with swp and tmp files
 set updatetime=100             " Refresh gutter and whatnot every 100ms
+set nohlsearch                 " Don't keep search result highlighted
+set shiftwidth=4               " Indent with 4 spaces
+set expandtab                  " On pressing tab, insert spaces
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -55,13 +59,14 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " Auto-install vim-plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
-	silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " plugins
 call plug#begin('~/.vim/plugged')
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'thoughtbot/vim-rspec'
@@ -73,13 +78,16 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
 Plug 'Raimondi/delimitMate'
+Plug 'mhinz/vim-startify'
+Plug 'preservim/nerdtree'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
-" Make CtrlP use ag for listing the files. Way faster and no useless files.
-let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
-let g:ctrlp_use_caching = 0
+" --- fzf ---
+nnoremap <C-p> :Files<cr>
+nnoremap <leader>ff :Ag<cr>
 
-" RSpec.vim - save and run specs
+" --- RSpec.vim - save and run specs ---
 map <Leader>t :w<cr> :call RunCurrentSpecFile()<cr>
 map <Leader>s :w<cr> :call RunNearestSpec()<cr>
 map <Leader>l :w<cr> :call RunLastSpec()<cr>
@@ -87,17 +95,81 @@ map <Leader>l :w<cr> :call RunLastSpec()<cr>
 let g:rspec_runner = "os_x_iterm2"
 let g:rspec_command = "Dispatch rspec {spec}"
 
-" gitgutter
+" --- gitgutter ---
 nmap <leader>hn <Plug>(GitGutterNextHunk)
 nmap <leader>hl <Plug>(GitGutterPrevHunk)
 
-" Color scheme - To improve
+" --- NERDTree ---
+nnoremap <leader>kb :NERDTreeFocus<CR>
+nnoremap <leader>kbf :NERDTreeFind<CR>
+
+" --- coc ---
+let g:coc_global_extensions = ['coc-solargraph']
+
+" Use <Tab> to confirm completion
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
+" --- startify ---
+let g:startify_lists = [
+    \{ 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+    \{ 'type': 'sessions',  'header': ['   Sessions']       },
+    \{ 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+\]
+
+" from https://github.com/filipekiss/dotfiles/blob/7ddece0a1a4e5099146d7c96fff077c86e4d320a/config/vim/.vim/after/plugin/startify.vim
+if has('nvim')
+    let g:startify_ascii = [
+                \ "      .            .      ",
+                \ "    .,;'           :,.    ",
+                \ "  .,;;;,,.         ccc;.  ",
+                \ ".;c::::,,,'        ccccc: ",
+                \ ".::cc::,,,,,.      cccccc.",
+                \ ".cccccc;;;;;;'     llllll.",
+                \ ".cccccc.,;;;;;;.   llllll.",
+                \ ".cccccc  ';;;;;;'  oooooo.",
+                \ "'lllllc   .;;;;;;;.oooooo'",
+                \ "'lllllc     ,::::::looooo'",
+                \ "'llllll      .:::::lloddd'",
+                \ ".looool       .;::coooodo.",
+                \ "  .cool         'ccoooc.  ",
+                \ "    .co          .:o:.    ",
+                \ "      .           .'      ",
+                \]
+else
+    let g:startify_ascii = [
+                \ '     ________ ;;     ________',
+                \ '    /********\;;;;  /********\',
+                \ '    \********/;;;;;;\********/',
+                \ '     |******|;;;;;;;;/*****/',
+                \ '     |******|;;;;;;/*****/''',
+                \ '    ;|******|;;;;/*****/'';',
+                \ '  ;;;|******|;;/*****/'';;;;;',
+                \ ';;;;;|******|/*****/'';;;;;;;;;',
+                \ '  ;;;|***********/'';;;;;;;;;',
+                \ '    ;|*********/'';;;;;;;;;',
+                \ '     |*******/'';;;;;;;;;',
+                \ '     |*****/'';;;;;;;;;',
+                \ '     |***/'';;;;;;;;;',
+                \ '     |*/''   ;;;;;;',
+                \ '              ;;',
+                \]
+endif
+
+let g:startify_custom_header = g:startify_ascii
+
+let g:startify_bookmarks = [
+    \{ 'd': '$DOTFILES' },
+    \{ 's': '$SSERVER' },
+    \{ 'l': '$SETL' },
+\]
+
+" ======= Color scheme - To improve =======
 if (has('termguicolors'))
-	set termguicolors
+    set termguicolors
 endif
 
 let g:jellybeans_overrides = {
-\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+    \'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
 \}
 if has('termguicolors') && &termguicolors
     let g:jellybeans_overrides['background']['guibg'] = 'none'
@@ -107,3 +179,6 @@ colorscheme jellybeans
 
 " gitgutter colors
 highlight GitGutterDelete guifg=#E74C3C
+highlight GitGutterChange guifg=#F1C40F
+highlight GitGutterAdd guifg=#27AE60
+highlight clear SignColumn
