@@ -3,21 +3,11 @@
 " colorscheme & UI
 set guifont=Menlo:h15
 
-let g:jellybeans_overrides = {
-\    'background': { 'guibg': '1F2937' },
-\}
-
-set background=dark
-
-" gitgutter colors
-highlight GitGutterDelete guifg=#E74C3C
-
 " rspec.vim
 let g:rspec_command = "bundle exec rspec {spec}" " cannot use Dispatch
 
-" Use Cmd + P for CtrlP
-map <C-p> :CtrlP<cr>
-map <D-p> :CtrlP<cr>
+" Use Cmd + P for fzf
+map <D-p> :Files<cr>
 
 if has('gui_macvim')
   " This removes the Cmd-P binding from 'Print':
