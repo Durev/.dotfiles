@@ -7,6 +7,9 @@ export ZSH=$HOME/.oh-my-zsh
 # Sourcing of other files
 source $DOTFILES/aliases.zsh
 
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
 # Disable flow control commands (keeps C-s from freezing everything)
 stty start undef
 stty stop undef
