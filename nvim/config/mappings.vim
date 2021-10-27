@@ -15,7 +15,7 @@ imap <C-s> <esc>:w<cr>
 nmap j gj
 nmap k gk
 
-" Rapid editing of vimrc
+" Rapid editing of init.vim
 nmap <leader>vr :tabnew $MYVIMRC<cr>
 nmap <leader>so :source $MYVIMRC<cr>
 
@@ -23,9 +23,18 @@ nmap <leader>so :source $MYVIMRC<cr>
 imap jk <esc>
 imap kj <esc>
 
-" Jump to left/right split
-nmap <leader><Left> <C-w>h
-nmap <leader><Right> <C-w>l
+" Easy quit
+nmap Q :q<cr>
+
+" New split
+nmap vv <C-w>v
+nmap ss <C-w>s
+
+" Jump to split
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-h> <C-w>h
+map <C-l> <C-w>l
 
 " Ruby motion
 nmap <leader>d [m
@@ -48,5 +57,5 @@ nmap <leader>hn <Plug>(GitGutterNextHunk)
 nmap <leader>hl <Plug>(GitGutterPrevHunk)
 
 " --- NERDTree ---
-nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>ntt :NERDTreeToggle<CR>
 nnoremap <silent><leader>ntf :NERDTreeFind<CR>
