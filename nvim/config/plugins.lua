@@ -1,9 +1,9 @@
 -- Plugins settings
 
 -- Setup nvim-cmp.
-  local cmp = require'cmp'
+local cmp = require'cmp'
 
-  cmp.setup({
+cmp.setup({
     snippet = {
       expand = function(args)
         -- For `vsnip` user.
@@ -15,7 +15,7 @@
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     },
     sources = {
       { name = 'nvim_lsp' },
@@ -23,7 +23,7 @@
       -- For vsnip user.
       { name = 'vsnip' },
     }
-  })
+})
 
 vim.lsp.set_log_level("debug")
 

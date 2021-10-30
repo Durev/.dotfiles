@@ -36,6 +36,10 @@ map <C-k> <C-w>k
 map <C-h> <C-w>h
 map <C-l> <C-w>l
 
+" Switch tab
+nmap <leader><right> gt
+nmap <leader><left> gT
+
 " Ruby motion
 nmap <leader>d [m
 nmap <leader>e ]M
