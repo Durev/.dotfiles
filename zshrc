@@ -10,6 +10,9 @@ source $DOTFILES/aliases.zsh
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
+# Homebrew: Only update explicitely required packages
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 # Disable flow control commands (keeps C-s from freezing everything)
 stty start undef
 stty stop undef

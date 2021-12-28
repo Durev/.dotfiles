@@ -23,6 +23,10 @@ nmap <leader>so :source $MYVIMRC<cr>
 imap jk <esc>
 imap kj <esc>
 
+" End / Beginning of line in insert mode
+imap ¬ <esc>$a
+imap Ì <esc>0i
+
 " Easy quit
 nmap Q :q<cr>
 
@@ -59,6 +63,7 @@ map <Leader>l :w<cr> :call RunLastSpec()<cr>
 " --- gitgutter ---
 nmap <leader>hn <Plug>(GitGutterNextHunk)
 nmap <leader>hl <Plug>(GitGutterPrevHunk)
+nmap <leader>hs <Plug>(GitGutterStageHunk)
 
 " --- NERDTree ---
 nnoremap <leader>ntt :NERDTreeToggle<CR>
