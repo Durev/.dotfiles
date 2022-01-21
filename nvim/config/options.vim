@@ -1,4 +1,5 @@
 " General settings
+" :help options
 
 set nocompatible               " No need for vi compatibility - Must be setup first
 
@@ -19,6 +20,9 @@ set updatetime=100             " Refresh gutter and whatnot every 100ms
 set nohlsearch                 " Don't keep search result highlighted
 set noshowmode                 " Redundant with statusline
 set mouse=a                    " Enable mouse
+set clipboard+=unnamedplus     " Always use the system clipboard
+set signcolumn=yes             " Always show the sign column to avoid visual jumps
+set nowrap                     " Display lines as one long line
 
 " Indentation and tabs
 set expandtab                  " Insert spaces instead of tab characters
@@ -27,10 +31,20 @@ set softtabstop=2              " Nb of spaces inserted with Tab and removed with
 set tabstop=2                  " Witdh of tab characters (when already present)
 set autoindent                 " Copy indent from current line when starting a new line
 set smartindent                " Smart autoindenting when starting a new line
-set formatoptions-=cro         " Stop newline continuation of comments
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
+
+" Stop newline continuation of comments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" Switch to absolute numbers in insert mode or when losing focus
+" From https://jeffkreeftmeijer.com/vim-number/
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
 
 " Use ftplugins instead of autocmds if this gets out of hand
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 tabstop=4

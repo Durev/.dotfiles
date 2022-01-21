@@ -27,13 +27,16 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'itchyny/lightline.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
-" LSP and completion
+" Language Servers integration
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/nvim-cmp' " Completion engine for built-in LSP
 
-" For vsnip user.
+" Formatting & diagnostics
+" Plug 'jose-elias-alvarez/null-ls.nvim'
+
+" LSP snippets
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 call plug#end()
