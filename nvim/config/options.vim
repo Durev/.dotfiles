@@ -22,7 +22,9 @@ set noshowmode                 " Redundant with statusline
 set mouse=a                    " Enable mouse
 set clipboard+=unnamedplus     " Always use the system clipboard
 set signcolumn=yes             " Always show the sign column to avoid visual jumps
-set nowrap                     " Display lines as one long line
+set ignorecase                 " Case insensitive search
+set smartcase                  " Case sensitive search if the search pattern contains uppercase characters
+" set nowrap                     " Display lines as one long line
 
 " Indentation and tabs
 set expandtab                  " Insert spaces instead of tab characters

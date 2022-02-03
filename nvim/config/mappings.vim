@@ -100,9 +100,10 @@ nnoremap <Leader>s :w<cr> :call RunNearestSpec()<cr>
 nnoremap <Leader>l :w<cr> :call RunLastSpec()<cr>
 
 " --- gitgutter ---
-nnoremap <leader>hn <Plug>(GitGutterNextHunk)
-nnoremap <leader>hl <Plug>(GitGutterPrevHunk)
-nnoremap <leader>hs <Plug>(GitGutterStageHunk)
+nnoremap <leader>hn :GitGutterNextHunk<cr>
+nnoremap <leader>hl :GitGutterPrevHunk<cr>
+nnoremap <leader>hs :GitGutterStageHunk<cr>
+nnoremap <leader>hu :GitGutterUndoHunk<cr>
 
 " --- NERDTree ---
 nnoremap <leader>ntt :NERDTreeToggle<CR>

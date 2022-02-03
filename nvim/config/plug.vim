@@ -26,6 +26,7 @@ Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'itchyny/lightline.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'tomlion/vim-solidity'
 
 " Language Servers integration
 Plug 'neovim/nvim-lspconfig'
