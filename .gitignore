@@ -1,2 +1,3 @@
-# local setup, aliases for private projects for instance
+zsh/plugins
+# aliases for private projects
 aliases.local.zsh
