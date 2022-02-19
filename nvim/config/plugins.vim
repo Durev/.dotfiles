@@ -21,6 +21,10 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
+" --- delimitMate ---
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+
 " --- startify ---
 let g:startify_lists = [
     \{ 'type': 'dir',       'header': ['   MRU '. getcwd()] },

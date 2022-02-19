@@ -20,19 +20,23 @@ cmp.setup({
     sources = {
       { name = 'nvim_lsp' },
       { name = 'buffer' },
+      { name = 'cmp_tabnine' },
       -- For vsnip user.
       { name = 'vsnip' },
     }
 })
 
-vim.lsp.set_log_level("debug")
+-- LSP debugging
+-- vim.lsp.set_log_level("debug")
 
--- Configure language servers (to extract)
-require'lspconfig'.solargraph.setup{
-    settings = {
-        solargraph = {
-            diagnostics = false,
-            completion = true
-        }
-    }
-}
+-- Tabnine setup
+local tabnine = require('cmp_tabnine.config')
+tabnine:setup({
+  max_lines = 1000;
+  max_num_results = 20;
+  sort = true;
+  run_on_every_keystroke = true;
+  snippet_placeholder = '..';
+  ignored_file_types = {};
+})
+

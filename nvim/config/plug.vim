@@ -18,21 +18,23 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
+Plug 'Raimondi/delimitMate'
+" delimitMate needs to be loaded before vim-endwise
 Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
-Plug 'Raimondi/delimitMate'
 Plug 'mhinz/vim-startify'
 Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'itchyny/lightline.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'tomlion/vim-solidity'
+Plug 'AndrewRadev/splitjoin.vim'
 
 " Language Servers integration
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp' " Completion engine for built-in LSP
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
 " Formatting & diagnostics
 " Plug 'jose-elias-alvarez/null-ls.nvim'
