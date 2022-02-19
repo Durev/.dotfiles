@@ -1,3 +1,9 @@
+# mk directory (can be nested) and cd into it
+mkcd() {
+  mkdir -p -- "$1" && cd -P -- "$1"
+}
+
+# ------- Git -------
 # git checkout branch/tag x fzf
 fco() {
   local tags branches target

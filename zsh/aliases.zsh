@@ -35,6 +35,7 @@ alias bel="BUNDLE_GEMFILE='private/LocalGemfile' bundle exec"
 alias dotfiles="cd $DOTFILES"
 
 # misc
+alias v="nvim"
 alias subl=\''/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'\'
 
 # For private aliases
