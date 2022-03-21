@@ -21,13 +21,17 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'Raimondi/delimitMate'
 " delimitMate needs to be loaded before vim-endwise
 Plug 'tpope/vim-endwise'
-Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-startify'
 Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'tomlion/vim-solidity'
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'akinsho/toggleterm.nvim'
+Plug 'sickill/vim-pasta'
+Plug 'ggandor/lightspeed.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " Language Servers integration
 Plug 'neovim/nvim-lspconfig'

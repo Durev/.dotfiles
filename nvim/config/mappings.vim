@@ -99,11 +99,21 @@ nnoremap <Leader>t :w<cr> :call RunCurrentSpecFile()<cr>
 nnoremap <Leader>s :w<cr> :call RunNearestSpec()<cr>
 nnoremap <Leader>l :w<cr> :call RunLastSpec()<cr>
 
-" --- gitgutter ---
-nnoremap <leader>hn :GitGutterNextHunk<cr>
-nnoremap <leader>hl :GitGutterPrevHunk<cr>
-nnoremap <leader>hs :GitGutterStageHunk<cr>
-nnoremap <leader>hu :GitGutterUndoHunk<cr>
+" --- gitsigns ---
+nnoremap <leader>hn :Gitsigns next_hunk<cr>
+nnoremap <leader>hl :Gitsigns prev_hunk<cr>
+nnoremap <leader>hs :Gitsigns stage_hunk<cr>
+nnoremap <leader>hu :Gitsigns reset_hunk<cr>
+nnoremap <leader>hp :Gitsigns preview_hunk<cr>
+nnoremap <leader>gb :Gitsigns blame_line<cr>
+
+" --- Fugitive ---
+" Solving git merge conflicts
+nnoremap <leader>cs :Gvdiffsplit!<CR>
+nnoremap <leader>cn ]c
+nnoremap <leader>cl [c
+nnoremap <leader>ckh :diffget //2<CR>
+nnoremap <leader>ckl :diffget //3<CR>
 
 " --- NERDTree ---
 nnoremap <leader>ntt :NERDTreeToggle<CR>

@@ -1,6 +1,6 @@
 -- Plugins settings
 
--- Setup nvim-cmp.
+-- ===== nvim-cmp =====
 local cmp = require'cmp'
 
 cmp.setup({
@@ -26,10 +26,10 @@ cmp.setup({
     }
 })
 
--- LSP debugging
+-- ===== LSP debugging =====
 -- vim.lsp.set_log_level("debug")
 
--- Tabnine setup
+-- ===== Tabnine setup =====
 local tabnine = require('cmp_tabnine.config')
 tabnine:setup({
   max_lines = 1000;
@@ -40,3 +40,23 @@ tabnine:setup({
   ignored_file_types = {};
 })
 
+-- ===== ToggleTerm =====
+require("toggleterm").setup{
+  open_mapping = [[<C-t>]],
+  direction = 'float',
+  float_opts = {
+    border = 'curved',
+    winblend = 0,
+    highlights = {
+      border = "Normal",
+      background = "Normal",
+    }
+  }
+}
+
+-- ===== gitsigns =====
+require('gitsigns').setup {
+  signs = {
+    delete = { hl = 'GitSignsDelete', text = '▸' },
+  },
+}

@@ -92,8 +92,8 @@ let g:material_theme_style = 'default'
 
 colorscheme material
 
-" gitgutter colors
-highlight GitGutterDelete guifg=#E74C3C
-highlight GitGutterChange guifg=#F1C40F
-highlight GitGutterAdd guifg=#27AE60
+" gitsigns colors
+highlight GitSignsDelete guifg=#E74C3C
+highlight GitSignsChange guifg=#FACC15
+highlight GitSignsAdd guifg=#2ECC71
 highlight clear SignColumn
