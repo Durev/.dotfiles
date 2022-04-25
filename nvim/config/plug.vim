@@ -12,17 +12,14 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
-Plug 'Raimondi/delimitMate'
-" delimitMate needs to be loaded before vim-endwise
+Plug 'Raimondi/delimitMate' " needs to be loaded before vim-endwise
 Plug 'tpope/vim-endwise'
 Plug 'mhinz/vim-startify'
-Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'tomlion/vim-solidity'
@@ -32,6 +29,10 @@ Plug 'sickill/vim-pasta'
 Plug 'ggandor/lightspeed.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'max397574/better-escape.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'vim-test/vim-test'
 
 " Language Servers integration
 Plug 'neovim/nvim-lspconfig'

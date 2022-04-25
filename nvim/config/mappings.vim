@@ -48,7 +48,8 @@ nnoremap Q :q<cr>
 
 " New split
 nnoremap vv <C-w>v
-nnoremap ss <C-w>s
+" nnoremap ss <C-w>s
+" 'conflict' with lightspeed s default mapping
 
 " Jump to split
 nnoremap <C-j> <C-w>j
@@ -66,11 +67,11 @@ nnoremap <M-Right> :vertical resize +2<cr>
 nnoremap <right> gt
 nnoremap <left> gT
 
-" Ruby motion
-nnoremap <leader>d [m
-nnoremap <leader>e ]M
-nnoremap <leader>E [M
-nnoremap <leader>D ]m
+" " Ruby motion
+" nnoremap <leader>d [m
+" nnoremap <leader>e ]M
+" nnoremap <leader>E [M
+" nnoremap <leader>D ]m
 
 " ------ Insert ------
 " Ain't nobody got time for Esc
@@ -94,10 +95,10 @@ vnoremap < <gv
 nnoremap <C-p> :Files<cr>
 nnoremap <leader>ff :Ag<cr>
 
-" --- RSpec.vim - save and run specs ---
-nnoremap <Leader>t :w<cr> :call RunCurrentSpecFile()<cr>
-nnoremap <Leader>s :w<cr> :call RunNearestSpec()<cr>
-nnoremap <Leader>l :w<cr> :call RunLastSpec()<cr>
+" --- test.vim - save and run specs ---
+nnoremap <Leader>t :w<cr> :TestFile<cr>
+nnoremap <Leader>s :w<cr> :TestNearest<cr>
+nnoremap <Leader>l :w<cr> :TestLast<cr>
 
 " --- gitsigns ---
 nnoremap <leader>hn :Gitsigns next_hunk<cr>
@@ -115,16 +116,19 @@ nnoremap <leader>cl [c
 nnoremap <leader>ckh :diffget //2<CR>
 nnoremap <leader>ckl :diffget //3<CR>
 
-" --- NERDTree ---
-nnoremap <leader>ntt :NERDTreeToggle<CR>
-nnoremap <silent><leader>ntf :NERDTreeFind<CR>
+" --- nvim-tree ---
+nnoremap <silent><leader>nt :NvimTreeToggle<CR>
+nnoremap <silent><leader>nf :NvimTreeFindFile<CR>
 
 " ========== LSP ==========
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <leader>dp <cmd>lua vim.diagnostic.open_float()<CR>
+nnoremap <silent> <leader>dl <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>dn <cmd>lua vim.diagnostic.goto_next()<CR>
+
+" not implemented yet
+" nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 " nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-" nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>

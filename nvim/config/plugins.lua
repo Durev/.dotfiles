@@ -4,34 +4,30 @@
 local cmp = require'cmp'
 
 cmp.setup({
-    snippet = {
-      expand = function(args)
-        -- For `vsnip` user.
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    mapping = {
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    },
-    sources = {
-      { name = 'nvim_lsp' },
-      { name = 'buffer' },
-      { name = 'cmp_tabnine' },
-      -- For vsnip user.
-      { name = 'vsnip' },
-    }
+  snippet = {
+    expand = function(args)
+      -- For `vsnip` user.
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'cmp_tabnine' },
+    -- For vsnip user.
+    { name = 'vsnip' },
+  }
 })
 
--- ===== LSP debugging =====
--- vim.lsp.set_log_level("debug")
-
 -- ===== Tabnine setup =====
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
+require('cmp_tabnine').setup({
   max_lines = 1000;
   max_num_results = 20;
   sort = true;
@@ -45,11 +41,11 @@ require("toggleterm").setup{
   open_mapping = [[<C-t>]],
   direction = 'float',
   float_opts = {
-    border = 'curved',
-    winblend = 0,
+    border = 'none',
+    winblend = 5,
     highlights = {
       border = "Normal",
-      background = "Normal",
+      background = "Pmenu",
     }
   }
 }
@@ -58,5 +54,39 @@ require("toggleterm").setup{
 require('gitsigns').setup {
   signs = {
     delete = { hl = 'GitSignsDelete', text = '▸' },
+    changedelete = { hl = 'GitSignsChange', text = '│▸' },
+  },
+}
+
+-- ===== better-escape =====
+require("better_escape").setup {
+  mapping = {"jk", "kj"},
+}
+
+-- ===== nvim-tree =====
+local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+
+local nvim_tree_mapping = {
+  { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
+  { key = "h", cb = tree_cb "close_node" },
+  { key = "v", cb = tree_cb "vsplit" },
+  { key = "s", cb = tree_cb "split" },
+  { key = "?", cb = tree_cb "toggle_help" },
+}
+
+require'nvim-tree'.setup {
+  actions = {
+    open_file = {
+      quit_on_open = true,
+    },
+  },
+  git = {
+    enable = false,
+  },
+  view = {
+    mappings = {
+      custom_only = false,
+      list = nvim_tree_mapping,
+    },
   },
 }

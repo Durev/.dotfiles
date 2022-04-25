@@ -4,22 +4,12 @@
 " Ignore filenames in Ag matching
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 
-" --- RSpec.vim ---
-let g:rspec_runner = "os_x_iterm2"
-let g:rspec_command = "Dispatch rspec {spec}"
+" --- test.vim---
+let test#strategy = "dispatch"
 
-" --- NERDTree ---
-" Open NERDTree when Vim is started without file arguments - disable startify though
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-let NERDTreeQuitOnOpen = 1
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
+" --- nvim-tree ---
+" Close the tab if nvim-tree is the last window remaining
+autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 
 " --- delimitMate ---
 let g:delimitMate_expand_cr = 1
@@ -74,12 +64,25 @@ let g:lightline = {
     \ 'colorscheme': 'material_vim',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+    \             [ 'filepath', 'gitbranch', 'readonly', 'modified' ] ]
+    \ },
+    \ 'component': {
+    \   'lineinfo': '%3l:%-2v%<',
     \ },
     \ 'component_function': {
-    \   'gitbranch': 'FugitiveHead'
+    \   'gitbranch': 'FugitiveHead',
+    \   'filepath': 'LightlineTruncatedFileName'
     \ },
     \ }
+
+function! LightlineTruncatedFileName()
+let l:filePath = expand('%')
+    if winwidth(0) > 70
+        return l:filePath
+    else
+        return pathshorten(l:filePath)
+    endif
+endfunction
 
 " Fix italics in Vim
 if !has('nvim')
@@ -91,6 +94,12 @@ let g:material_terminal_italics = 1
 let g:material_theme_style = 'default'
 
 colorscheme material
+
+" cursor line highlight
+highlight CursorLine guibg=#34434a
+
+" visual mode selection colour
+highlight Visual guifg=none guibg=#0C4A6E gui=none
 
 " gitsigns colors
 highlight GitSignsDelete guifg=#E74C3C
