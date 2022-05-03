@@ -25,6 +25,8 @@ set signcolumn=yes             " Always show the sign column to avoid visual jum
 set ignorecase                 " Case insensitive search
 set smartcase                  " Case sensitive search if the search pattern contains uppercase characters
 " set nowrap                     " Display lines as one long line
+set scrolloff=5                " Min nb of lines above and below the cursor
+set laststatus=3               " Use NeoVim Global Status line (v 0.7)
 
 " Indentation and tabs
 set expandtab                  " Insert spaces instead of tab characters

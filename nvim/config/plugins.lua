@@ -90,3 +90,30 @@ require'nvim-tree'.setup {
     },
   },
 }
+
+-- ===== Indent Blankline =====
+-- TODO: Enrich with treesitter data
+require("indent_blankline").setup {
+  show_trailing_blankline_indent = false,
+  show_first_indent_level = false,
+  show_current_context = false,
+  show_current_context_start = false,
+}
+
+-- ===== Telescope =====
+local tl_actions = require "telescope.actions"
+
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-n>"] = tl_actions.cycle_history_next,
+        ["<C-p>"] = tl_actions.cycle_history_prev,
+        ["<C-j>"] = tl_actions.move_selection_next,
+        ["<C-k>"] = tl_actions.move_selection_previous,
+        ["<C-h>"] = tl_actions.which_key,
+        ["<C-s>"] = tl_actions.select_horizontal,
+      }
+    }
+  },
+}

@@ -15,14 +15,20 @@ autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tab
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
-" --- startify ---
-let g:startify_lists = [
-    \{ 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-    \{ 'type': 'sessions',  'header': ['   Sessions']       },
-    \{ 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-\]
+" --- dashboard-nvim ---
+let g:indentLine_fileTypeExclude = ['dashboard']
+let g:dashboard_default_executive ='telescope'
 
-let g:startify_ascii = [
+let g:dashboard_custom_section={
+  \ 'find_file': { 'description': ['  Find file   '], 'command': 'Telescope find_files' },
+  \ 'recent_files': { 'description': ['  Recent files'], 'command': 'Telescope oldfiles' },
+  \ 'last_session': { 'description': ['  Last session'], 'command': 'SessionLoad' },
+  \ 'find_word': { 'description': ['  Find word   '], 'command': 'Telescope live_grep' },
+  \ 'new_file': { 'description': ['  New file    '], 'command': 'enew' },
+  \ 'settings': { 'description': ['⚙︎  Dotfiles    '], 'command': 'lcd $DOTFILES | enew' },
+\ }
+
+let g:dashboard_custom_header = [
     \ "             .:                :.                                                                                                                          ",
     \ "           .---:.              :--.                                                                                                                        ",
     \ "         .-----::.             :===-.                                                                                                                      ",
@@ -46,13 +52,8 @@ let g:startify_ascii = [
     \ "            :-.               -==:  ",
  \]
 
-let g:startify_custom_header = g:startify_ascii
+let g:dashboard_custom_footer = []
 
-let g:startify_bookmarks = [
-    \{ 'd': '$DOTFILES' },
-    \{ 's': '$SSERVER' },
-    \{ 'l': '$SETL' },
-\]
 
 " ======= Color scheme & Statusline =======
 if (has('termguicolors'))

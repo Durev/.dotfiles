@@ -91,9 +91,16 @@ vnoremap < <gv
 " vnoremap p _dP
 
 " ========== Plugins ==========
-" --- fzf ---
-nnoremap <C-p> :Files<cr>
-nnoremap <leader>ff :Ag<cr>
+" --- telescope ---
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope live_grep<cr>
+nnoremap <leader>fs <cmd>Telescope grep_string<cr>
+nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>fd <cmd>Telescope lsp_definitions<cr>
+nnoremap <leader>flsd <cmd>Telescope diagnostics<cr>
+nnoremap <leader>fgc <cmd>Telescope git_commits<cr>
+nnoremap <leader>fgb <cmd>Telescope git_branches<cr>
+nnoremap <leader>fgst <cmd>Telescope git_status<cr>
 
 " --- test.vim - save and run specs ---
 nnoremap <Leader>t :w<cr> :TestFile<cr>
