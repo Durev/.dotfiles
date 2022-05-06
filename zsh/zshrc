@@ -1,3 +1,25 @@
+# ------- Exports -------
+export DOTFILES=$HOME/.dotfiles
+export ZDOTDIR=$DOTFILES/zsh
+
+source $ZDOTDIR/exports.zsh
+
+# ------- Prompt -------
+source $ZDOTDIR/prompt.zsh
+
+# ------- Functions -------
+source $ZDOTDIR/functions.zsh
+
+# ------- Aliases -------
+source $ZDOTDIR/aliases.zsh
+
+# ------- Plugins -------
+zsh_add_plugin "zsh-users/zsh-autosuggestions"
+zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # ------- Settings & Options -------
 # Disable flow control commands (keeps C-s from freezing everything)
 stty start undef
@@ -6,60 +28,12 @@ stty stop undef
 # Disable auto-highlight of pasted content
 zle_highlight=('paste:none')
 
-# ------- Exports -------
-export DOTFILES=$HOME/.dotfiles
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-# Folder for manually added binaries
-export PATH="$HOME/.local/bin":$PATH
-
-# Homebrew: Only update explicitely required packages
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-# Setting fd as the default source for fzf (thus respecting .gitignore)
-export FZF_DEFAULT_COMMAND='ag -g ""'
-
-# Use case-sensitive completion
-CASE_SENSITIVE="true"
-
-# Timestamp shown in the history command output - cf. 'man strftime'
-HIST_STAMPS="yyyy-mm-dd"
+# Do not find duplicate command when searching in history
+setopt HIST_FIND_NO_DUPS
 
 # rbenv
 eval "$(rbenv init -)"
 
-# ------- Prompt -------
-# https://github.com/spaceship-prompt/spaceship-prompt
-autoload -U promptinit; promptinit
-prompt spaceship
-SPACESHIP_GIT_STATUS_COLOR="172"
-
-SPACESHIP_PROMPT_ORDER=(
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  # node          # Node.js section
-  # ruby          # Ruby section
-  # elixir        # Elixir section
-  exec_time     # Execution time
-  line_sep      # Line break
-  vi_mode       # Vi-mode indicator
-  exit_code     # Exit code section
-  char          # Prompt character
-)
-
-# ------- Functions -------
-source $DOTFILES/zsh/functions.zsh
-
-# ------- Aliases -------
-source $DOTFILES/zsh/aliases.zsh
-
-# ------- Plugins -------
-[ -f "$DOTFILES/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
-  source "$DOTFILES/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-
-[ -f "$DOTFILES/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && \
-  source "$DOTFILES/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Keep cycling through history with autosuggestions on
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward

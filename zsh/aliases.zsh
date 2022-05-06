@@ -4,6 +4,7 @@ alias ga="git add"
 alias gb="git branch"
 alias gc="git commit -v"
 alias gco="git checkout"
+alias gcm="git checkout main"
 alias gl="git pull"
 alias gp="git push"
 alias gm="git merge"
@@ -35,8 +36,10 @@ alias bel="BUNDLE_GEMFILE='private/LocalGemfile' bundle exec"
 alias dotfiles="cd $DOTFILES"
 
 # misc
+alias lsa="exa -a1"
+alias lsaa="exa -al"
 alias v="nvim"
 alias subl=\''/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'\'
 
 # For private aliases
-[ -f $DOTFILES/zsh/aliases.local.zsh ] && source $DOTFILES/zsh/aliases.local.zsh
+zsh_add_file "aliases.local.zsh"

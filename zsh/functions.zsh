@@ -3,7 +3,43 @@ mkcd() {
   mkdir -p -- "$1" && cd -P -- "$1"
 }
 
+# --- Files and plugin management ---
+# From https://github.com/Mach-OS/Machfiles
+
+# Source files if they exist
+zsh_add_file() {
+  [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+}
+
+zsh_add_plugin() {
+  PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+
+  if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
+    zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+    zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+  else
+    git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+  fi
+}
+
 # ------- Git -------
+__git_prompt_git() {
+  GIT_OPTIONAL_LOCKS=0 command git "$@"
+}
+
+# Outputs the name of the current branch
+# From https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/git.zsh
+git_current_branch() {
+  local ref
+  ref=$(__git_prompt_git symbolic-ref --quiet HEAD 2> /dev/null)
+  local ret=$?
+  if [[ $ret != 0 ]]; then
+    [[ $ret == 128 ]] && return  # no git repo.
+    ref=$(__git_prompt_git rev-parse --short HEAD 2> /dev/null) || return
+  fi
+  echo ${ref#refs/heads/}
+}
+
 # git checkout branch/tag x fzf
 fco() {
   local tags branches target
@@ -41,4 +77,3 @@ fgp() {
 git_cleanup() {
   git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
 }
-
