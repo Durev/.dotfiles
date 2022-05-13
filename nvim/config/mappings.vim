@@ -8,7 +8,8 @@
 
 " Modes
 "   normal mode = n
-"   visual mode = i
+"   insert mode = i
+"   visual mode = v
 "   visual block mode = x
 "   term mode = t
 "   command mode = c

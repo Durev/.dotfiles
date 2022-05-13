@@ -3,6 +3,34 @@
 -- ===== nvim-cmp =====
 local cmp = require'cmp'
 
+local kind_icons = {
+  Text = "",
+  Method = "m",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "",
+  Interface = "",
+  Module = "",
+  Property = "",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = "",
+}
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -19,17 +47,34 @@ cmp.setup({
   },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'nvim_lua' },
+    { name = 'vsnip' },
     { name = 'buffer' },
     { name = 'cmp_tabnine' },
-    -- For vsnip user.
-    { name = 'vsnip' },
-  }
+    { name = 'path' },
+  },
+  formatting = {
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      -- Kind icons
+      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+      vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[Nvim lua]",
+        vsnip = "[Snippet]",
+        buffer = "[Buffer]",
+        cmp_tabnine = "[Tabnine]",
+        path = "[Path]",
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
 })
 
 -- ===== Tabnine setup =====
 require('cmp_tabnine').setup({
   max_lines = 1000;
-  max_num_results = 20;
+  max_num_results = 5;
   sort = true;
   run_on_every_keystroke = true;
   snippet_placeholder = '..';
@@ -115,5 +160,31 @@ require('telescope').setup{
         ["<C-s>"] = tl_actions.select_horizontal,
       }
     }
+  },
+}
+
+-- TODO: Find alternative to the additional_vim_regex_highlighting option
+-- setting this to false breaks vim-endwise and vim-ruby
+-- cf. https://github.com/nvim-treesitter/nvim-treesitter/issues/703
+-- alternative for vim-endwise: https://github.com/RRethy/nvim-treesitter-endwise
+-- ===== Treesitter =====
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "ruby", "lua", "bash", "elixir", "html", "vim", "javascript", "json" },
+  sync_install = false,
+  highlight = {
+    enable = true,
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = true,
+  },
+}
+
+-- ===== lualine =====
+require('lualine').setup {
+  options = {
+    globalstatus = true,
+    theme = 'material',
   },
 }

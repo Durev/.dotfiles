@@ -19,6 +19,11 @@ let g:delimitMate_expand_space = 1
 let g:indentLine_fileTypeExclude = ['dashboard']
 let g:dashboard_default_executive ='telescope'
 
+" fix dashboard overwritting laststatus option (global statusline)
+" does not work
+" let g:dashboard_disable_statusline = 1
+au! bufenter * set laststatus=3
+
 let g:dashboard_custom_section={
   \ 'find_file': { 'description': ['  Find file   '], 'command': 'Telescope find_files' },
   \ 'recent_files': { 'description': ['  Recent files'], 'command': 'Telescope oldfiles' },
@@ -29,81 +34,34 @@ let g:dashboard_custom_section={
 \ }
 
 let g:dashboard_custom_header = [
-    \ "             .:                :.                                                                                                                          ",
-    \ "           .---:.              :--.                                                                                                                        ",
-    \ "         .-----::.             :===-.                                                                                                                      ",
-    \ "       .----------:            :=====-.                                                                                 :****:                             ",
-    \ "     .::-----------:           :=======-.                                                                               :****:                             ",
-    \ "     ::::------------.         -========:                                                                                                                  ",
-    \ "     :::::------------:        -========:          -.  .:--=-:.         :-----:.         .:--=--:    =+++=        .++++..++++.  -+++..-+***+-  .-++***+=:  ",
-    \ "     ::::::------------:       -========:          *-:=-..  .-+=     .=+-.    .-=:     -+-:.  .:-+=.  +***-       =***- :****:  =***+*++=+***+-**+==+****= ",
-    \ "     :-------------------.     -========:          *+:         +=   .+-          +:  .+=          =*: .****:     -***=  :****:  =***+:    .+****:    :****:",
-    \ "     :--------..----------:    -========:          *=          =*   +=           :+  ++            +*. :***+.   :***+   :****:  =***+      =***+      +***-",
-    \ "     :--------.  -----------   -========:          *=          -*  :*+============= .*-            -*:  =***=   +**+.   :****:  =***+      =***+      +***-",
-    \ "     :--------.   :----------. -========:          *=          -*  .*-              .*-            -*:   =***: =***:    :****:  =***+      =***+      +***-",
-    \ "     :--------.    .----------:-========:          *=          -*   ++               ++            +*.    +**+:***-     :****:  =***+      =***+      +***-",
-    \ "     :--------.      ----------=========:          *=          -*   .+=              :*-          -*:     :******=      :****:  =***+      =***+      +***-",
-    \ "     :--------.       :--------=========-          *=          -*    .=+-..   .:-=:   .==:.    .:+=:       :****+       :****:  =***+      =***+      +***-",
-    \ "     :--------.        .-------====+++++-          -:          :-       :--==--:.        :--==--:           ::::.       .::::.  :::::      :::::      ::::.",
-    \ "     :--------.         .------=====++++-                                                                                                                  ",
-    \ "      :-------.           :----======+=:                                                                                                                   ",
-    \ "        :-----.            .---======:                                                                                                                     ",
-    \ "          :-==.             .--====:                                                                                                                       ",
-    \ "            :-.               -==:  ",
+    \ "            .:                :.            ",
+    \ "          .---:.              :--.          ",
+    \ "        .-----::.             :===-.        ",
+    \ "      .----------:            :=====-.      ",
+    \ "    .::-----------:           :=======-.    ",
+    \ "    ::::------------.         -========:    ",
+    \ "    :::::------------:        -========:    ",
+    \ "    ::::::------------:       -========:    ",
+    \ "    :-------------------.     -========:    ",
+    \ "    :--------..----------:    -========:    ",
+    \ "    :--------.  -----------   -========:    ",
+    \ "    :--------.   :----------. -========:    ",
+    \ "    :--------.    .----------:-========:    ",
+    \ "    :--------.      ----------=========:    ",
+    \ "    :--------.       :--------=========-    ",
+    \ "    :--------.        .-------====+++++-    ",
+    \ "    :--------.         .------=====++++-    ",
+    \ "     :-------.           :----======+=:     ",
+    \ "       :-----.            .---======:       ",
+    \ "         :-==.             .--====:         ",
+    \ "           :-.               -==:  ",
+    \ "",
+    \ "",
  \]
 
 let g:dashboard_custom_footer = []
 
 
-" ======= Color scheme & Statusline =======
-if (has('termguicolors'))
-    set termguicolors
-endif
-
-" default lightline colorscheme provide greater contrast - Stay minimal for now
-let g:lightline = {
-    \ 'colorscheme': 'material_vim',
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'filepath', 'gitbranch', 'readonly', 'modified' ] ]
-    \ },
-    \ 'component': {
-    \   'lineinfo': '%3l:%-2v%<',
-    \ },
-    \ 'component_function': {
-    \   'gitbranch': 'FugitiveHead',
-    \   'filepath': 'LightlineTruncatedFileName'
-    \ },
-    \ }
-
-function! LightlineTruncatedFileName()
-let l:filePath = expand('%')
-    if winwidth(0) > 70
-        return l:filePath
-    else
-        return pathshorten(l:filePath)
-    endif
-endfunction
-
-" Fix italics in Vim
-if !has('nvim')
-  let &t_ZH="\e[3m"
-  let &t_ZR="\e[23m"
-endif
-
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'default'
-
-colorscheme material
-
-" cursor line highlight
-highlight CursorLine guibg=#34434a
-
-" visual mode selection colour
-highlight Visual guifg=none guibg=#0C4A6E gui=none
-
-" gitsigns colors
-highlight GitSignsDelete guifg=#E74C3C
-highlight GitSignsChange guifg=#FACC15
-highlight GitSignsAdd guifg=#2ECC71
-highlight clear SignColumn
+" TODO: does not work for toggleterm floating window - find matching setting
+" highlight NormalFloat guibg=#455A64
+" highlight FloatBorder guifg=white guibg=#34434a

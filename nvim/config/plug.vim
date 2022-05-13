@@ -17,7 +17,6 @@ Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 Plug 'Raimondi/delimitMate' " needs to be loaded before vim-endwise
 Plug 'tpope/vim-endwise'
-Plug 'itchyny/lightline.vim'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'tomlion/vim-solidity'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -34,11 +33,15 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'glepnir/dashboard-nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lualine/lualine.nvim'
 
 " Language Servers integration
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua' " source for neovim lua API
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp' " Completion engine for built-in LSP
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
