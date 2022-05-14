@@ -1,9 +1,25 @@
 -- Language servers config
+local status_ok, _ = pcall(require, "lspconfig")
+if not status_ok then
+  return
+end
 
 -- LSP debugging
 -- vim.lsp.set_log_level("debug")
 
--- ruby LS
+-- lsp installer
+require("nvim-lsp-installer").setup({
+  automatic_installation = true,
+  ui = {
+    icons = {
+      server_installed = "✓",
+      server_pending = "➜",
+      server_uninstalled = "✗"
+    }
+  }
+})
+
+-- ruby
 require'lspconfig'.solargraph.setup{
   settings = {
     solargraph = {
@@ -13,15 +29,35 @@ require'lspconfig'.solargraph.setup{
   }
 }
 
--- bash LS
+-- bash
 require'lspconfig'.bashls.setup{
   filetypes = { "sh", "zsh" }
 }
 
--- solidity LS
-require'lspconfig'.solang.setup{
-  cmd = { "solang", "--language-server", "--target", "ewasm" }
+-- solidity
+-- require'lspconfig'.solang.setup{
+--   cmd = { "solang", "--language-server", "--target", "ewasm" }
+-- }
+
+-- lua
+require'lspconfig'.sumneko_lua.setup{
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+      },
+      diagnostics = {
+        globals = { "vim" },
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
 }
+
+-- elixir
+require'lspconfig'.elixirls.setup{}
 
 -- diagnostics
 vim.diagnostic.config({

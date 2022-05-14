@@ -21,5 +21,6 @@ highlight GitSignsChange guifg=#FACC15
 highlight GitSignsAdd guifg=#2ECC71
 highlight clear SignColumn
 
-" slightly darker color for indent line (cf. help)
+" indent blank lines (cf. help indent-blankline)
 highlight IndentBlanklineChar guifg=#3d4e57 gui=nocombine
+highlight IndentBlanklineContextChar guifg=#BDC3C7 gui=nocombine
