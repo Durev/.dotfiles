@@ -106,3 +106,16 @@ require('lualine').setup {
     theme = 'material',
   },
 }
+
+-- ===== bufferline =====
+require("bufferline").setup{
+  options = {
+    mode = "tabs",
+    diagnostics = "nvim_lsp",
+    offsets = {{ filetype = "NvimTree", text = "", text_align = "left" }},
+    separator_style = "slant",
+    show_buffer_close_icons = false,
+    always_show_bufferline = false,
+    sort_by = "tabs",
+  }
+}
