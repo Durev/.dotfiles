@@ -15,6 +15,9 @@ autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tab
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
+" --- vim-textobj-rubyblock ---
+runtime macros/matchit.vim
+
 " --- dashboard-nvim ---
 let g:indentLine_fileTypeExclude = ['dashboard']
 let g:dashboard_default_executive ='telescope'
