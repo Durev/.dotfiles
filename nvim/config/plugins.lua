@@ -57,10 +57,13 @@ require'nvim-tree'.setup {
 
 -- ===== Indent Blankline =====
 require("indent_blankline").setup {
+  use_treesitter = true,
   show_trailing_blankline_indent = false,
   show_first_indent_level = false,
   show_current_context = true,
   show_current_context_start = false,
+  use_treesitter_scope = true,
+  context_patterns = { "class", "method", "if", "block" },
 }
 
 -- ===== Telescope =====
@@ -100,10 +103,18 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- ===== lualine =====
+local navic = require("nvim-navic")
+
 require('lualine').setup {
   options = {
     globalstatus = true,
     theme = 'material',
+  },
+  sections = {
+    lualine_c = {
+      { 'filename' },
+      { navic.get_location, cond = navic.is_available },
+    }
   },
 }
 

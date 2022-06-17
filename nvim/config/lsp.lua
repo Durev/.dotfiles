@@ -19,6 +19,9 @@ require("nvim-lsp-installer").setup({
   }
 })
 
+-- navic context component for statusline
+local navic = require("nvim-navic")
+
 -- ruby
 require'lspconfig'.solargraph.setup{
   settings = {
@@ -26,18 +29,22 @@ require'lspconfig'.solargraph.setup{
       diagnostics = true,
       completion = true
     }
-  }
+  },
+  -- on_attach = function(client, bufnr)
+  --   navic.attach(client, bufnr)
+  -- end
 }
+-- TODO: attach navic when solargraph uses documentSymbols
+-- https://github.com/castwide/solargraph/issues/550
 
 -- bash
 require'lspconfig'.bashls.setup{
-  filetypes = { "sh", "zsh" }
+  filetypes = { "sh", "zsh" },
+  -- on_attach = function(client, bufnr)
+  --   navic.attach(client, bufnr)
+  -- end
 }
-
--- solidity
--- require'lspconfig'.solang.setup{
---   cmd = { "solang", "--language-server", "--target", "ewasm" }
--- }
+-- TODO: attach navic when bashls uses documentSymbols
 
 -- lua
 require'lspconfig'.sumneko_lua.setup{
@@ -54,6 +61,9 @@ require'lspconfig'.sumneko_lua.setup{
       },
     },
   },
+  on_attach = function(client, bufnr)
+    navic.attach(client, bufnr)
+  end
 }
 
 -- elixir
@@ -75,6 +85,3 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
--- JS linting
--- require'lspconfig'.eslint.setup{}

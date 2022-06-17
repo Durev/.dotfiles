@@ -50,6 +50,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp' " Completion engine for built-in LSP
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'SmiteshP/nvim-navic' " context
 
 " Formatting & diagnostics
 " Plug 'jose-elias-alvarez/null-ls.nvim'
