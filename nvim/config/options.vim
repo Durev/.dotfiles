@@ -52,3 +52,4 @@ augroup END
 
 " Use ftplugins instead of autocmds if this gets out of hand
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 tabstop=4
+autocmd FileType go setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab

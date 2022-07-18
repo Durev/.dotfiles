@@ -68,6 +68,10 @@ nnoremap <M-Right> :vertical resize +2<cr>
 nnoremap <right> gt
 nnoremap <left> gT
 
+" Beginning/end of paragraph
+nnoremap <up> {
+nnoremap <down> }
+
 " " Ruby motion
 " nnoremap <leader>d [m
 " nnoremap <leader>e ]M
@@ -87,6 +91,13 @@ inoremap Ì <esc>0i
 " Stay in indent mode
 vnoremap > >gv
 vnoremap < <gv
+
+" Jump to last non-whitespace character
+vnoremap $ g_
+
+" Beginning/end of paragraph
+vnoremap <up> {
+vnoremap <down> }
 
 " Keep yanked text on top of register after pasting
 " vnoremap p _dP

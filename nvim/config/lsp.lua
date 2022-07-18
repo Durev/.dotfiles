@@ -67,7 +67,18 @@ require'lspconfig'.sumneko_lua.setup{
 }
 
 -- elixir
-require'lspconfig'.elixirls.setup{}
+require'lspconfig'.elixirls.setup{
+  on_attach = function(client, bufnr)
+    navic.attach(client, bufnr)
+  end
+}
+
+-- go
+require'lspconfig'.gopls.setup{
+  on_attach = function(client, bufnr)
+    navic.attach(client, bufnr)
+  end
+}
 
 -- diagnostics
 vim.diagnostic.config({

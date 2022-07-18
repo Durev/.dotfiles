@@ -36,6 +36,9 @@ Plug 'glepnir/dashboard-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+Plug 'tiagovla/scope.nvim' " Scope buffers to tabs - useful with bufferline
+Plug 'folke/which-key.nvim'
+Plug 'elixir-editors/vim-elixir'
 
 " Custom text objects
 Plug 'kana/vim-textobj-user'

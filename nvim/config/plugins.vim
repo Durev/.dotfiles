@@ -6,6 +6,7 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'opti
 
 " --- test.vim---
 let test#strategy = "dispatch"
+let g:dispatch_compilers = {'elixir': 'exunit'}
 
 " --- nvim-tree ---
 " Close the tab if nvim-tree is the last window remaining
@@ -17,6 +18,9 @@ let g:delimitMate_expand_space = 1
 
 " --- vim-textobj-rubyblock ---
 runtime macros/matchit.vim
+
+" --- vim-commentary ---
+autocmd FileType elixir setlocal commentstring=#\ %s
 
 " --- dashboard-nvim ---
 let g:indentLine_fileTypeExclude = ['dashboard']

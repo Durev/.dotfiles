@@ -90,7 +90,7 @@ require('telescope').setup{
 -- alternative for vim-endwise: https://github.com/RRethy/nvim-treesitter-endwise
 -- ===== Treesitter =====
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "ruby", "lua", "bash", "elixir", "html", "vim", "javascript", "json" },
+  ensure_installed = { "ruby", "lua", "bash", "elixir", "html", "vim", "javascript", "json", "go" },
   sync_install = false,
   highlight = {
     enable = true,
@@ -130,3 +130,6 @@ require("bufferline").setup{
     sort_by = "tabs",
   }
 }
+
+-- ===== scope =====
+require("scope").setup {}
