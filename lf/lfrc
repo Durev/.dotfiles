@@ -1,0 +1,10 @@
+set icons
+set previewer ~/.dotfiles/lf/previewer.sh
+
+# Open finder
+cmd finder %open .
+map o finder
+
+# Trash
+cmd trash %set -f; mv $fx ~/.Trash
+map <backspace2> trash
