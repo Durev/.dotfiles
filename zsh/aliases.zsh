@@ -8,7 +8,7 @@ alias gcm="git checkout main"
 alias gl="git pull"
 alias gp="git push"
 alias gm="git merge"
-alias gst="git status"
+alias gst="git status -sb"
 alias gdfc="git diff --cached"
 alias glg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
@@ -40,6 +40,7 @@ alias lsa="exa -a1"
 alias lsaa="exa -al"
 alias v="nvim"
 alias subl=\''/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'\'
+alias ipinfo="curl https://ipinfo.io/json"
 
 # For private aliases
 zsh_add_file "aliases.local.zsh"
