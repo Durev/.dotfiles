@@ -77,3 +77,14 @@ fgp() {
 git_cleanup() {
   git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
 }
+
+# lf: bind Q to 'quit and move to current directory'
+# https://github.com/gokcehan/lf/issues/785
+lf () {
+  local tempfile="$(mktemp)"
+  command lf -command "map Q \$echo \$PWD >$tempfile; lf -remote \"send \$id quit\"" "$@"
+  if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n $(pwd))" ]]; then
+    cd -- "$(cat "$tempfile")" || return
+  fi
+  command rm -f -- "$tempfile" 2>/dev/null
+}
