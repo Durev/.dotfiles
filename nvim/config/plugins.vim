@@ -16,6 +16,11 @@ autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tab
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 
+" Fix: https://github.com/tpope/vim-endwise/issues/133
+if empty(maparg('<CR>', 'i'))
+  imap <CR> <Plug>delimitMateCR
+endif
+
 " --- vim-textobj-rubyblock ---
 runtime macros/matchit.vim
 
@@ -23,51 +28,8 @@ runtime macros/matchit.vim
 autocmd FileType elixir setlocal commentstring=#\ %s
 
 " --- dashboard-nvim ---
-let g:indentLine_fileTypeExclude = ['dashboard']
-let g:dashboard_default_executive ='telescope'
-
 " fix dashboard overwritting laststatus option (global statusline)
-" does not work
-" let g:dashboard_disable_statusline = 1
 au! bufenter * set laststatus=3
-
-let g:dashboard_custom_section={
-  \ 'find_file': { 'description': ['  Find file   '], 'command': 'Telescope find_files' },
-  \ 'recent_files': { 'description': ['  Recent files'], 'command': 'Telescope oldfiles' },
-  \ 'last_session': { 'description': ['  Last session'], 'command': 'SessionLoad' },
-  \ 'find_word': { 'description': ['  Find word   '], 'command': 'Telescope live_grep' },
-  \ 'new_file': { 'description': ['  New file    '], 'command': 'enew' },
-  \ 'settings': { 'description': ['⚙︎  Dotfiles    '], 'command': 'lcd $DOTFILES | enew' },
-\ }
-
-let g:dashboard_custom_header = [
-    \ "            .:                :.            ",
-    \ "          .---:.              :--.          ",
-    \ "        .-----::.             :===-.        ",
-    \ "      .----------:            :=====-.      ",
-    \ "    .::-----------:           :=======-.    ",
-    \ "    ::::------------.         -========:    ",
-    \ "    :::::------------:        -========:    ",
-    \ "    ::::::------------:       -========:    ",
-    \ "    :-------------------.     -========:    ",
-    \ "    :--------..----------:    -========:    ",
-    \ "    :--------.  -----------   -========:    ",
-    \ "    :--------.   :----------. -========:    ",
-    \ "    :--------.    .----------:-========:    ",
-    \ "    :--------.      ----------=========:    ",
-    \ "    :--------.       :--------=========-    ",
-    \ "    :--------.        .-------====+++++-    ",
-    \ "    :--------.         .------=====++++-    ",
-    \ "     :-------.           :----======+=:     ",
-    \ "       :-----.            .---======:       ",
-    \ "         :-==.             .--====:         ",
-    \ "           :-.               -==:  ",
-    \ "",
-    \ "",
- \]
-
-let g:dashboard_custom_footer = []
-
 
 " TODO: does not work for toggleterm floating window - find matching setting
 " highlight NormalFloat guibg=#455A64

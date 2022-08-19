@@ -104,10 +104,10 @@ vnoremap <down> }
 
 " ========== Plugins ==========
 " --- telescope ---
-nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <C-p> <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>ff <cmd>Telescope live_grep<cr>
 nnoremap <leader>fs <cmd>Telescope grep_string<cr>
-nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>fr <cmd>Telescope lsp_references show_line=false<cr>
 nnoremap <leader>fd <cmd>Telescope lsp_definitions<cr>
 nnoremap <leader>flsd <cmd>Telescope diagnostics<cr>
 nnoremap <leader>fgc <cmd>Telescope git_commits<cr>

@@ -7,15 +7,25 @@ end
 -- LSP debugging
 -- vim.lsp.set_log_level("debug")
 
--- lsp installer
-require("nvim-lsp-installer").setup({
-  automatic_installation = true,
+-- mason
+require("mason").setup({
   ui = {
     icons = {
-      server_installed = "✓",
-      server_pending = "➜",
-      server_uninstalled = "✗"
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
     }
+  }
+})
+
+-- mason-lspconfig
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "bashls",
+    "elixirls",
+    "gopls",
+    "solargraph",
+    "sumneko_lua",
   }
 })
 

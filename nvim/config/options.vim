@@ -27,6 +27,7 @@ set smartcase                  " Case sensitive search if the search pattern con
 " set nowrap                     " Display lines as one long line
 set scrolloff=5                " Min nb of lines above and below the cursor
 set laststatus=3               " Use NeoVim Global Status line (v 0.7)
+set pumheight=10               " Max nb of items in floating window (cmp...)
 
 " Indentation and tabs
 set expandtab                  " Insert spaces instead of tab characters

@@ -64,6 +64,7 @@ require("indent_blankline").setup {
   show_current_context_start = false,
   use_treesitter_scope = true,
   context_patterns = { "class", "method", "if", "block" },
+  filetype_exclude = { "dashboard" }, -- nvim-dashboard
 }
 
 -- ===== Telescope =====
@@ -90,7 +91,7 @@ require('telescope').setup{
 -- alternative for vim-endwise: https://github.com/RRethy/nvim-treesitter-endwise
 -- ===== Treesitter =====
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "ruby", "lua", "bash", "elixir", "html", "vim", "javascript", "json", "go" },
+  ensure_installed = { "ruby", "lua", "bash", "elixir", "html", "vim", "javascript", "json", "go", "sql", "markdown" },
   sync_install = false,
   highlight = {
     enable = true,
@@ -131,5 +132,100 @@ require("bufferline").setup{
   }
 }
 
+-- ===== dashboard-nvim =====
+local dashboard = require("dashboard")
+
+local dashboard_header = {
+   "            .:                :.            ",
+   "          .---:.              :--.          ",
+   "        .-----::.             :===-.        ",
+   "      .----------:            :=====-.      ",
+   "    .::-----------:           :=======-.    ",
+   "    ::::------------.         -========:    ",
+   "    :::::------------:        -========:    ",
+   "    ::::::------------:       -========:    ",
+   "    :-------------------.     -========:    ",
+   "    :--------..----------:    -========:    ",
+   "    :--------.  -----------   -========:    ",
+   "    :--------.   :----------. -========:    ",
+   "    :--------.    .----------:-========:    ",
+   "    :--------.      ----------=========:    ",
+   "    :--------.       :--------=========-    ",
+   "    :--------.        .-------====+++++-    ",
+   "    :--------.         .------=====++++-    ",
+   "     :-------.           :----======+=:     ",
+   "       :-----.            .---======:       ",
+   "         :-==.             .--====:         ",
+   "           :-.               -==:           ",
+}
+
+local update_plugins = function ()
+  vim.cmd([[
+  let s:filepath = $DOTFILES . '/nvim/plugins_snapshop_' . strftime('%Y-%m-%d-%H:%M:%S') . '.vim'
+
+  execute ':PlugSnapshot 's:filepath''
+
+  execute ':PlugUpdate'
+  ]])
+end
+
+dashboard.custom_center = {
+  {
+    icon = "🔍  ",
+    icon_hl = { fg = "#c7d8ff" },
+    desc = "Find file     ",
+    action = "Telescope find_files hidden=true",
+  },
+  {
+    icon = "🔤  ",
+    icon_hl = { fg = "#c7d8ff" },
+    desc = "Find word     ",
+    action = "Telescope live_grep",
+  },
+  {
+    icon = "📄  ",
+    icon_hl = { fg = "#c7d8ff" },
+    desc = "New file      ",
+    action = "enew",
+  },
+  {
+    icon = "📑  ",
+    icon_hl = { fg = "#c7d8ff" },
+    desc = "Recent files  ",
+    action = "Telescope oldfiles",
+  },
+  {
+    -- TODO: Configure sessions
+    icon = "🕣  ",
+    icon_hl = { fg = "#c7d8ff" },
+    desc = "Last session  ",
+    action = "SessionLoad",
+  },
+  {
+    icon = "📡  ",
+    icon_hl = { fg = "#c7d8ff" },
+    desc = "Update plugins",
+    action = update_plugins,
+  },
+  {
+    icon = "⚙️   ",
+    icon_hl = { fg = "#c7d8ff" },
+    desc = "Dotfiles      ",
+    action = "lcd $DOTFILES | enew",
+  },
+  -- Link to LSP Installer / Mason?
+}
+
+dashboard.custom_header = dashboard_header
+dashboard.custom_footer = {}
+dashboard.hide_statusline = true
+dashboard.hide_tabline = true
+dashboard.header_pad = 3
+dashboard.center_pad = 5
+-- dashboard.session_directory    -- string type the directory to store the session file
+
 -- ===== scope =====
-require("scope").setup {}
+require("scope").setup()
+
+-- ===== true-zen  =====
+require("true-zen").setup {}

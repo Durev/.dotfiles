@@ -44,6 +44,8 @@ cmp.setup({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+    ['<Up>'] = cmp.mapping.select_prev_item(),
+    ['<Down>'] = cmp.mapping.select_next_item(),
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -54,16 +56,16 @@ cmp.setup({
     { name = 'path' },
   },
   formatting = {
-    fields = { "kind", "abbr", "menu" },
+    fields = { "abbr", "kind", "menu" },
     format = function(entry, vim_item)
       -- Kind icons
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
       vim_item.menu = ({
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[Nvim lua]",
-        vsnip = "[Snippet]",
-        buffer = "[Buffer]",
-        cmp_tabnine = "[Tabnine]",
+        nvim_lsp = "[LS]",
+        nvim_lua = "[Nvim]",
+        vsnip = "[Sn]",
+        buffer = "[Bu]",
+        cmp_tabnine = "[T9]",
         path = "[Path]",
       })[entry.source.name]
       return vim_item
