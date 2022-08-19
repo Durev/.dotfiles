@@ -409,7 +409,7 @@ Naming/AccessorMethodName:
     - "spec/**/*"
 
 Naming/MemoizedInstanceVariableName:
-  Enabled: true
+  Enabled: false
 
 Naming/PredicateName:
   Enabled: true
