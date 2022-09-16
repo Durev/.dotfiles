@@ -45,7 +45,16 @@ nnoremap <leader>vr :tabnew $MYVIMRC<cr>
 nnoremap <leader>so :source $MYVIMRC<cr>
 
 " Easy quit
-nnoremap Q :q<cr>
+
+" TODO: To improve
+function! Quit()
+  if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    :q
+  else
+    :bdelete
+  endif
+endfunction
+nnoremap Q :call Quit()<cr>
 
 " New split
 nnoremap vv <C-w>v
@@ -71,12 +80,6 @@ nnoremap <left> gT
 " Beginning/end of paragraph
 nnoremap <up> {
 nnoremap <down> }
-
-" " Ruby motion
-" nnoremap <leader>d [m
-" nnoremap <leader>e ]M
-" nnoremap <leader>E [M
-" nnoremap <leader>D ]m
 
 " ------ Insert ------
 " Ain't nobody got time for Esc
@@ -118,22 +121,6 @@ nnoremap <leader>fgst <cmd>Telescope git_status<cr>
 nnoremap <Leader>t :w<cr> :TestFile<cr>
 nnoremap <Leader>s :w<cr> :TestNearest<cr>
 nnoremap <Leader>l :w<cr> :TestLast<cr>
-
-" --- gitsigns ---
-nnoremap <leader>hn :Gitsigns next_hunk<cr>
-nnoremap <leader>hl :Gitsigns prev_hunk<cr>
-nnoremap <leader>hs :Gitsigns stage_hunk<cr>
-nnoremap <leader>hu :Gitsigns reset_hunk<cr>
-nnoremap <leader>hp :Gitsigns preview_hunk<cr>
-nnoremap <leader>gb :Gitsigns blame_line<cr>
-
-" --- Fugitive ---
-" Solving git merge conflicts
-nnoremap <leader>cs :Gvdiffsplit!<CR>
-nnoremap <leader>cn ]c
-nnoremap <leader>cl [c
-nnoremap <leader>ckh :diffget //2<CR>
-nnoremap <leader>ckl :diffget //3<CR>
 
 " --- nvim-tree ---
 nnoremap <silent><leader>nt :NvimTreeToggle<CR>

@@ -1,9 +1,5 @@
 " Plugins settings
 
-" --- fzf ---
-" Ignore filenames in Ag matching
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-
 " --- test.vim---
 let test#strategy = "dispatch"
 let g:dispatch_compilers = {'elixir': 'exunit'}

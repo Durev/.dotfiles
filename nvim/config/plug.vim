@@ -20,7 +20,6 @@ Plug 'tpope/vim-endwise'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'tomlion/vim-solidity'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'akinsho/toggleterm.nvim'
 Plug 'sickill/vim-pasta'
 Plug 'ggandor/lightspeed.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -36,9 +35,12 @@ Plug 'glepnir/dashboard-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
-Plug 'tiagovla/scope.nvim' " Scope buffers to tabs - useful with bufferline
 Plug 'elixir-editors/vim-elixir'
+Plug 'akinsho/git-conflict.nvim', { 'tag': '*' }
 Plug 'Pocco81/true-zen.nvim'
+Plug 'RRethy/vim-illuminate'
+Plug 'folke/which-key.nvim'
+Plug 'wellle/targets.vim'
 
 " Custom text objects
 Plug 'kana/vim-textobj-user'

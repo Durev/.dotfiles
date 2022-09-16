@@ -21,6 +21,12 @@ highlight GitSignsChange guifg=#FACC15
 highlight GitSignsAdd guifg=#2ECC71
 highlight clear SignColumn
 
+" git diff and conflicts
+highlight DiffAdd guibg=#405954
+highlight DiffText guibg=#3c5a6e
+highlight DiffDelete guibg=#694e37
+highlight DiffChange guibg=#695e35
+
 " indent blank lines (cf. help indent-blankline)
 highlight IndentBlanklineChar guifg=#3d4e57 gui=nocombine
 highlight IndentBlanklineContextChar guifg=#BDC3C7 gui=nocombine

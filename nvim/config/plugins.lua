@@ -1,19 +1,5 @@
 -- Plugins settings
 
--- ===== ToggleTerm =====
-require("toggleterm").setup{
-  open_mapping = [[<C-t>]],
-  direction = 'float',
-  float_opts = {
-    border = 'none',
-    winblend = 5,
-    highlights = {
-      border = "Normal",
-      background = "Pmenu",
-    }
-  }
-}
-
 -- ===== gitsigns =====
 require('gitsigns').setup {
   signs = {
@@ -122,13 +108,15 @@ require('lualine').setup {
 -- ===== bufferline =====
 require("bufferline").setup{
   options = {
-    mode = "tabs",
+    mode = "buffers",
     diagnostics = "nvim_lsp",
     offsets = {{ filetype = "NvimTree", text = "", text_align = "left" }},
-    separator_style = "slant",
+    separator_style = "thin",
     show_buffer_close_icons = false,
     always_show_bufferline = false,
     sort_by = "tabs",
+    color_icons = true,
+    show_tab_indicators = true,
   }
 }
 
@@ -224,8 +212,15 @@ dashboard.header_pad = 3
 dashboard.center_pad = 5
 -- dashboard.session_directory    -- string type the directory to store the session file
 
--- ===== scope =====
-require("scope").setup()
+-- ===== git-conflict.nvim =====
+require("git-conflict").setup {
+  default_mappings = false,
+  disable_diagnostics = true,
+    highlights = {
+    incoming = 'DiffText',
+    current = 'DiffAdd',
+  }
+}
 
 -- ===== true-zen  =====
 require("true-zen").setup {}
