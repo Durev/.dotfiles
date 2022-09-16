@@ -3,7 +3,6 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 
-source ~/.config/nvim/options.vim
 source ~/.config/nvim/options.vim     " General settings
 source ~/.config/nvim/mappings.vim    " Key mappings
 source ~/.config/nvim/plug.vim        " Plugin loader
