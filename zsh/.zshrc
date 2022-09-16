@@ -1,17 +1,14 @@
-# ------- Exports -------
+#          _
+#  _______| |__  _ __ ___
+# |_  / __| '_ \| '__/ __|
+#  / /\__ \ | | | | | (__
+# /___|___/_| |_|_|  \___|
+
 export DOTFILES=$HOME/.dotfiles
 export ZDOTDIR=$DOTFILES/zsh
 
-source $ZDOTDIR/exports.zsh
-
-# ------- Prompt -------
-source $ZDOTDIR/prompt.zsh
-
-# ------- Functions -------
-source $ZDOTDIR/functions.zsh
-
-# ------- Aliases -------
-source $ZDOTDIR/aliases.zsh
+# source other files (exports, functions, etc.)
+for config (~/.zsh/*.zsh) source $config
 
 # ------- Plugins -------
 zsh_add_plugin "zsh-users/zsh-autosuggestions"

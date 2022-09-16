@@ -41,6 +41,3 @@ alias lsaa="exa -al"
 alias v="nvim"
 alias subl=\''/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'\'
 alias ipinfo="curl https://ipinfo.io/json"
-
-# For private aliases
-zsh_add_file "aliases.local.zsh"
