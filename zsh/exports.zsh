@@ -11,6 +11,11 @@ HISTSIZE=20000
 # Folder for manually added binaries
 export PATH="$HOME/.local/bin":$PATH
 
+# Go
+export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
+export PATH="$PATH:$GOBIN"
+
 # Homebrew: Only update explicitely required packages
 export HOMEBREW_NO_AUTO_UPDATE=1
 
