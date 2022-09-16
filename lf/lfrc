@@ -8,3 +8,6 @@ map o finder
 # Trash
 cmd trash %set -f; mv $fx ~/.Trash
 map <backspace2> trash
+
+# Show hidden files
+map H set hidden!
