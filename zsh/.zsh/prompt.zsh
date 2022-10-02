@@ -5,7 +5,7 @@ prompt spaceship
 # https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 SPACESHIP_GIT_STATUS_COLOR="172"
 SPACESHIP_CHAR_COLOR_SUCCESS="106"
-SPACESHIP_DIR_COLOR="069"
+SPACESHIP_DIR_COLOR="075"
 
 SPACESHIP_CHAR_SYMBOL="❯ "
 
