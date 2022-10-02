@@ -1,9 +1,16 @@
-local wk = require("which-key")
+local which_key = require("which-key")
 
--- TODO: Add default options
+------ Normal ------
+local opts = {
+  mode = "n",
+  prefix = "<leader>",
+  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true,
+  noremap = true,
+  nowait = false,
+}
 
-wk.register(
-  {
+local mappings = {
     g = {
       name = "Git",
       c = {
@@ -17,7 +24,6 @@ wk.register(
         z = { "<cmd>GitConflictChooseNone<cr>", "zero (keep none)" },
       },
       b = { "<cmd>Gitsigns blame_line<cr>", "blame line" },
-      -- b = { function() print("bar") end, "Foobar" } -- you can also pass functions!
     },
     h = {
       name = "Hunks",
@@ -27,6 +33,21 @@ wk.register(
       s = { "<cmd>Gitsigns stage_hunk<cr>", "stage" },
       u = { "<cmd>Gitsigns reset_hunk<cr>", "undo" },
     },
-  },
-  { prefix = "<leader>" }
-)
+  }
+
+------ Visual ------
+local v_opts = {
+  mode = "v",
+  prefix = "<leader>",
+  buffer = nil,
+  silent = true,
+  noremap = true,
+  nowait = false,
+}
+
+local v_mappings = {
+  p = { "\"_dP", "paste (keep on top)" },
+}
+
+which_key.register(mappings, opts)
+which_key.register(v_mappings, v_opts)

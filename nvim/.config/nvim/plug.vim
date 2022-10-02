@@ -46,7 +46,7 @@ Plug 'wellle/targets.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock'
 
-" Language Servers integration
+" LSP & completion
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
@@ -57,11 +57,11 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'SmiteshP/nvim-navic' " context
+" Snippets
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*'}
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'rafamadriz/friendly-snippets'
 
 " Formatting & diagnostics
 " Plug 'jose-elias-alvarez/null-ls.nvim'
-
-" LSP snippets
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
 call plug#end()
