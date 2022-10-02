@@ -1,5 +1,5 @@
 set icons
-set previewer ~/.dotfiles/lf/previewer.sh
+set previewer ~/.config/lf/previewer.sh
 
 # Open finder
 cmd finder %open .
