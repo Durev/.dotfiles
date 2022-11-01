@@ -32,3 +32,12 @@ HIST_STAMPS="yyyy-mm-dd"
 
 # colorscheme for exa, lf, fd and tools using LS_COLORS
 export LS_COLORS="$(vivid generate nord)"
+
+# GNU PG
+export GPG_TTY=$(tty)
+
+# Postgres
+export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@11/lib/pkgconfig"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"

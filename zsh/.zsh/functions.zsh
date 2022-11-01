@@ -60,12 +60,46 @@ fgm() {
   git merge $(select_branch_or_tag)
 }
 
-# pull main and merge in current branch
+# return main or master - errors if both or none exists
+main_or_master() {
+  git show-ref --quiet refs/heads/main
+  local main_status=$?
+
+  git show-ref --quiet refs/heads/master
+  local master_status=$?
+
+  if [[ $master_status -eq 0 && $main_status -eq 0 ]]
+  then
+    return 1
+  elif [[ $main_status -eq 0 ]]
+  then
+    echo 'main'
+  elif [[ $master_status -eq 0 ]]
+  then
+    echo 'master'
+  else
+    return 1
+  fi
+}
+
+gcm() {
+  git checkout $(main_or_master)
+}
+
+# pull main/master and merge in current branch
 mma() {
-  git checkout main
+  git checkout $(main_or_master)
   git pull
   git checkout -
-  git merge main
+  git merge $(main_or_master)
+}
+
+# pull main/master and rebase in current branch
+rbma() {
+  git checkout $(main_or_master)
+  git pull
+  git checkout -
+  git rebase $(main_or_master)
 }
 
 # git push (with the upstream not set yet)

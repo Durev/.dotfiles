@@ -1,6 +1,6 @@
 # https://github.com/spaceship-prompt/spaceship-prompt
 autoload -U promptinit; promptinit
-prompt spaceship
+source /opt/homebrew/opt/spaceship/spaceship.zsh
 
 # https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 SPACESHIP_GIT_STATUS_COLOR="172"
