@@ -1,7 +1,7 @@
 -- Completion config
 
 -- ===== nvim-cmp =====
-local cmp = require "cmp"
+local cmp = require("cmp")
 
 local kind_icons = {
   Text = "",
@@ -34,31 +34,31 @@ local kind_icons = {
 cmp.setup({
   snippet = {
     expand = function(args)
-      require'luasnip'.lsp_expand(args.body)
-    end
+      require("luasnip").lsp_expand(args.body)
+    end,
   },
   mapping = {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    ['<Up>'] = cmp.mapping.select_prev_item(),
-    ['<Down>'] = cmp.mapping.select_next_item(),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+    ["<Up>"] = cmp.mapping.select_prev_item(),
+    ["<Down>"] = cmp.mapping.select_next_item(),
   },
   sources = {
-    { name = 'luasnip' },
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' },
-    { name = 'buffer' },
-    { name = 'cmp_tabnine' },
-    { name = 'path' },
+    { name = "luasnip" },
+    { name = "nvim_lsp" },
+    { name = "nvim_lua" },
+    { name = "buffer" },
+    { name = "cmp_tabnine" },
+    { name = "path" },
   },
   formatting = {
     fields = { "abbr", "kind", "menu" },
     format = function(entry, vim_item)
       -- Kind icons
-      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+      vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
       vim_item.menu = ({
         nvim_lsp = "[LS]",
         nvim_lua = "[Nvim]",
@@ -73,10 +73,10 @@ cmp.setup({
 })
 
 -- ===== luasnip =====
-local ls = require "luasnip"
+local ls = require("luasnip")
 -- local types = require "luasnip.util.types"
 
-ls.config.set_config {
+ls.config.set_config({
   history = true,
   updateevents = "TextChanged,TextChangedI",
   -- enable_autosnippets = true,
@@ -87,7 +87,7 @@ ls.config.set_config {
   --     },
   --   },
   -- },
-}
+})
 
 -- Mappings (from TJ)
 
@@ -115,13 +115,15 @@ end)
 
 -- ===== friendly-snippets =====
 require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip").filetype_extend("ruby", { "rails" })
+require("luasnip").filetype_extend("hbs", { "html" })
 
 -- ===== Tabnine setup =====
-require('cmp_tabnine').setup({
-  max_lines = 1000;
-  max_num_results = 5;
-  sort = true;
-  run_on_every_keystroke = true;
-  snippet_placeholder = '..';
-  ignored_file_types = {};
+require("cmp_tabnine").setup({
+  max_lines = 1000,
+  max_num_results = 5,
+  sort = true,
+  run_on_every_keystroke = true,
+  snippet_placeholder = "..",
+  ignored_file_types = {},
 })

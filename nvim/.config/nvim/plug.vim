@@ -21,7 +21,6 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'tomlion/vim-solidity'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'sickill/vim-pasta'
-Plug 'ggandor/lightspeed.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'max397574/better-escape.nvim'
@@ -41,6 +40,14 @@ Plug 'Pocco81/true-zen.nvim'
 Plug 'RRethy/vim-illuminate'
 Plug 'folke/which-key.nvim'
 Plug 'wellle/targets.vim'
+Plug 'sindrets/diffview.nvim'
+Plug 'ggandor/leap.nvim'
+Plug 'ggandor/flit.nvim'
+Plug 'gorbit99/codewindow.nvim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'folke/todo-comments.nvim'
+Plug 'j-hui/fidget.nvim'
+Plug 'karb94/neoscroll.nvim'
 
 " Custom text objects
 Plug 'kana/vim-textobj-user'
@@ -56,12 +63,11 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-Plug 'SmiteshP/nvim-navic' " context
+Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
 " Snippets
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*'}
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
-
-" Formatting & diagnostics
-" Plug 'jose-elias-alvarez/null-ls.nvim'
 call plug#end()

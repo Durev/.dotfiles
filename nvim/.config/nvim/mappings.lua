@@ -72,6 +72,8 @@ keymap("n", "<C-)>", "<C-}>", opts)
 keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 -- go to def in new tab
 keymap("n", "gD", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", opts)
+-- hover
+keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
 
 -- not implemented yet
 -- keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
@@ -156,11 +158,9 @@ local n_mappings = {
   d = {
     name = "Diagnostics",
     f = { "<cmd>Telescope diagnostics<cr>", "find (Telescope)" },
-    -- Set by LSP Saga:
-    -- p = preview
-    -- n = next
-    -- l = last
-    -- K = hover
+    p = { "<cmd>Lspsaga show_line_diagnostics<cr>", "preview" },
+    n = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next" },
+    l = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "last" },
   },
   t = {
     name = "Tests", -- test.vim - save and run specs
@@ -181,12 +181,20 @@ local n_mappings = {
     r = { "<cmd>Telescope lsp_references show_line=false<cr>", "LSP references" },
     d = { "<cmd>Telescope lsp_definitions<cr>", "LSP definitions" }, -- go to def or show list if multiple defs
   },
+  l = {
+    name = "LSP",
+    f = { "<cmd>Lspsaga lsp_finder<cr>", "Finder" },
+    r = { "<cmd>Lspsaga rename<cr>", "Rename" },
+    o = { "<cmd>Format<cr>", "Format" },
+  },
   -- Rapid editing/sourcing of init.vim
   ["so"] = { ":source $MYVIMRC<cr>", "source init.vim" },
   ["vr"] = { ":tabnew $MYVIMRC<cr>", "edit init.vim" },
   -- Lazy js
   [";"] = { "m`A;<Esc>``", "Append `;` at eol" },
   [","] = { "m`A,<Esc>``", "Append `,` at eol" },
+  -- Code actions
+  ["ca"] = { "<cmd>Lspsaga code_action<cr>", "Code Actions" },
 }
 
 ----------------------- Visual -----------------------
@@ -205,3 +213,7 @@ local v_mappings = {
 
 which_key.register(n_mappings, which_key_n_opts)
 which_key.register(v_mappings, which_key_v_opts)
+
+-- ===================== Plugins defaults =====================
+require("codewindow").apply_default_keybinds()
+require("leap").set_default_keymaps()

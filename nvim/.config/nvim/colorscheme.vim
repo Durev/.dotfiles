@@ -8,6 +8,12 @@ let g:material_theme_style = 'default'
 
 colorscheme material
 
+" The JSON standard does not support comments (by design)
+" So the default highlight is a bit aggressive for my poor eyes
+highlight jsonCommentError guibg=#734720
+
+highlight LineNr guifg=#475b67
+
 " cursor line highlight
 highlight CursorLine guibg=#34434a
 highlight CursorLineNr guifg=#BDC3C7
@@ -29,7 +35,7 @@ highlight DiffChange guibg=#695e35
 
 " indent blank lines (cf. help indent-blankline)
 highlight IndentBlanklineChar guifg=#3d4e57 gui=nocombine
-highlight IndentBlanklineContextChar guifg=#BDC3C7 gui=nocombine
+highlight IndentBlanklineContextChar guifg=#f1c40f gui=nocombine
 
 " Cmp
 " list of item kinds: https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/types/lsp.lua
@@ -58,4 +64,21 @@ highlight! CmpItemKindModule guibg=NONE guifg=#ffb62c
 " dashboard
 highlight DashboardHeader guifg=#f8cf74
 highlight DashboardCenter guifg=#c8e793
-" DashboardShortCut DashboardFooter
+highlight DashboardFooter guifg=#bdc3c7
+" highlight DashboardShortCut
+
+" vim-illuminate
+highlight IlluminatedWordText guibg=#405159
+highlight IlluminatedWordRead guibg=#405159
+highlight IlluminatedWordWrite guibg=#405159
+
+" Telescope
+highlight TelescopePromptNormal guibg=#333A40
+highlight TelescopePromptBorder guibg=#333A40 guifg=#E67E80
+highlight TelescopePromptTitle guibg=#E67E80 guifg=#333A40
+highlight TelescopeResultsNormal guibg=#232b31
+highlight TelescopeResultsBorder guibg=#232b31 guifg=#232b31
+highlight TelescopePreviewNormal guibg=#252d33
+highlight TelescopePreviewBorder guibg=#252d33 guifg=#252d33
+highlight TelescopePreviewTitle guibg=#83C092
+highlight TelescopeSelection guibg=#333A40

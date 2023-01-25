@@ -14,8 +14,8 @@ require("mason").setup({
       package_installed = "✓",
       package_pending = "➜",
       package_uninstalled = "✗",
-    }
-  }
+    },
+  },
 })
 
 -- mason-lspconfig
@@ -27,38 +27,49 @@ require("mason-lspconfig").setup({
     "gopls",
     "solargraph",
     "sumneko_lua",
-  }
+    "tsserver",
+  },
+})
+-- NOTE: Mason could also be used to install directly formatters and linters
+
+local null_ls = require("null-ls")
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
+
+null_ls.setup({
+  sources = {
+    diagnostics.rubocop.with({
+      command = "bundle",
+      args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.diagnostics.rubocop._opts.args),
+    }),
+    formatting.rubocop, -- enough or need a special command too?
+    formatting.prettier,
+    formatting.stylua,
+  },
 })
 
--- navic context component for statusline
-local navic = require("nvim-navic")
+-- Format current buffer
+vim.api.nvim_create_user_command("Format", function()
+  vim.lsp.buf.format({ timeout_ms = 2000 })
+end, { nargs = 0 })
 
 -- ruby
-require'lspconfig'.solargraph.setup{
+require("lspconfig").solargraph.setup({
   settings = {
     solargraph = {
       diagnostics = true,
-      completion = true
-    }
+      completion = true,
+    },
   },
-  -- on_attach = function(client, bufnr)
-  --   navic.attach(client, bufnr)
-  -- end
-}
--- TODO: attach navic when solargraph uses documentSymbols
--- https://github.com/castwide/solargraph/issues/550
+})
 
 -- bash
-require'lspconfig'.bashls.setup{
+require("lspconfig").bashls.setup({
   filetypes = { "sh", "zsh" },
-  -- on_attach = function(client, bufnr)
-  --   navic.attach(client, bufnr)
-  -- end
-}
--- TODO: attach navic when bashls uses documentSymbols
+})
 
 -- lua
-require'lspconfig'.sumneko_lua.setup{
+require("lspconfig").sumneko_lua.setup({
   settings = {
     Lua = {
       runtime = {
@@ -72,29 +83,32 @@ require'lspconfig'.sumneko_lua.setup{
       },
     },
   },
-  on_attach = function(client, bufnr)
-    navic.attach(client, bufnr)
-  end
-}
+})
 
 -- elixir
-require'lspconfig'.elixirls.setup{
-  on_attach = function(client, bufnr)
-    navic.attach(client, bufnr)
-  end
-}
+require("lspconfig").elixirls.setup({})
 
 -- go
-require'lspconfig'.gopls.setup{
+require("lspconfig").gopls.setup({})
+
+-- typescript
+require("lspconfig").tsserver.setup({
   on_attach = function(client, bufnr)
-    navic.attach(client, bufnr)
-  end
-}
+    -- Use prettier instead for formatting
+    client.server_capabilities.documentFormattingProvider = false
+  end,
+})
+
+-- linters
+
+-- eslint
+require("lspconfig").eslint.setup({})
 
 -- diagnostics
+-- TODO: add mapping to toggle sign/virtual_text
 vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
+  virtual_text = true,
+  signs = false,
   underline = false,
   update_in_insert = false,
   -- float = { border = "single" },
@@ -107,3 +121,13 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+-- UI
+
+-- LspSaga
+-- TODO: Fix display issue when split is too narrow
+require("lspsaga").init_lsp_saga()
+
+-- fidget
+-- Show running LSP servers
+require("fidget").setup({})
