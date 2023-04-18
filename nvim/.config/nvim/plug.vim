@@ -45,9 +45,9 @@ Plug 'ggandor/leap.nvim'
 Plug 'ggandor/flit.nvim'
 Plug 'gorbit99/codewindow.nvim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-Plug 'folke/todo-comments.nvim'
 Plug 'j-hui/fidget.nvim'
 Plug 'karb94/neoscroll.nvim'
+Plug 'mechatroner/rainbow_csv'
 
 " Custom text objects
 Plug 'kana/vim-textobj-user'
@@ -65,6 +65,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'zbirenbaum/copilot.lua' " using lua rewrite
+Plug 'zbirenbaum/copilot-cmp' " so I can plug it to cmp
 
 " Snippets
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*'}

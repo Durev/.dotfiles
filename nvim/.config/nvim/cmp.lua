@@ -29,6 +29,7 @@ local kind_icons = {
   Event = "",
   Operator = "",
   TypeParameter = "",
+  Copilot = "",
 }
 
 cmp.setup({
@@ -42,11 +43,15 @@ cmp.setup({
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
-    ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+    ["<Tab>"] = cmp.mapping.confirm({
+      select = true,
+      behavior = cmp.ConfirmBehavior.Replace,
+    }),
     ["<Up>"] = cmp.mapping.select_prev_item(),
     ["<Down>"] = cmp.mapping.select_next_item(),
   },
   sources = {
+    { name = "copilot" },
     { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
@@ -66,9 +71,27 @@ cmp.setup({
         buffer = "[Bu]",
         cmp_tabnine = "[T9]",
         path = "[Path]",
+        copilot = "",
       })[entry.source.name]
       return vim_item
     end,
+  },
+  sorting = {
+    priority_weight = 2,
+    comparators = {
+      require("copilot_cmp.comparators").prioritize,
+      -- Below is the default comparitor list and order for nvim-cmp
+      cmp.config.compare.offset,
+      -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.locality,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
   },
 })
 
@@ -127,3 +150,11 @@ require("cmp_tabnine").setup({
   snippet_placeholder = "..",
   ignored_file_types = {},
 })
+
+-- Copilot
+require("copilot").setup({
+  panel = { enabled = false },
+  suggestion = { enabled = false },
+})
+
+require("copilot_cmp").setup()

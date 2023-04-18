@@ -6,6 +6,14 @@ require("gitsigns").setup({
     delete = { hl = "GitSignsDelete", text = "▸" },
     changedelete = { hl = "GitSignsChange", text = "│▸" },
   },
+  preview_config = {
+    -- Options passed to nvim_open_win
+    border = 'none',
+    style = 'minimal',
+    -- relative = 'cursor',
+    -- row = 0,
+    -- col = 1,
+  },
 })
 
 -- ===== better-escape =====
@@ -104,7 +112,7 @@ require("telescope").setup({
   },
   pickers = {
     find_files = {
-      find_command = { "fd", "--hidden", "--type", "file" },
+      find_command = { "fd", "--hidden", "--type", "file", "-E", ".git" },
     },
   },
 })
@@ -299,21 +307,6 @@ require("flit").setup({})
 
 -- ===== codewindow  =====
 require("codewindow").setup({})
-
--- ===== todo-comments  =====
-require("todo-comments").setup({
-  search = {
-    command = "rg",
-    args = {
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
-      "--hidden",
-    },
-  },
-})
 
 -- ===== nvim-web-devicons  =====
 -- override dev icons

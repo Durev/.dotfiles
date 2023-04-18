@@ -64,7 +64,7 @@ keymap("n", "<M-Right>", ":vertical resize +2<cr>", opts)
 keymap("n", "<up>", "{", opts)
 keymap("n", "<down>", "}", opts)
 
--- Follow link in help page
+-- Follow link in help page / go to tags source
 keymap("n", "<C-)>", "<C-}>", opts)
 
 -- LSP
