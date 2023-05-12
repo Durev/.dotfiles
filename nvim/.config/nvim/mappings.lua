@@ -187,6 +187,17 @@ local n_mappings = {
     r = { "<cmd>Lspsaga rename<cr>", "Rename" },
     o = { "<cmd>Format<cr>", "Format" },
   },
+  r = {
+    name = "Rails",
+    l = { "<cmd>lua require('ror.commands').list_commands()<CR>", "List commands" },
+    t = {
+      name = "Tests",
+      t = { "<cmd>lua require('ror.test').run()<CR>", "file" },
+      n = { "<cmd>lua require('ror.test').run('Line')<CR>", "nearest" },
+      c = { "<cmd>lua require('ror.test').clear()<CR>", "clear" },
+    }
+  },
+  u = { "<cmd>UndotreeToggle<cr> <cmd>UndotreeFocus<cr>", "Undotree" },
   -- Rapid editing/sourcing of init.vim
   ["so"] = { ":source $MYVIMRC<cr>", "source init.vim" },
   ["vr"] = { ":tabnew $MYVIMRC<cr>", "edit init.vim" },

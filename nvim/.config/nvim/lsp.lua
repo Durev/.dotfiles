@@ -24,10 +24,10 @@ require("mason-lspconfig").setup({
     "bashls",
     "elixirls",
     "eslint",
-    "gopls",
+    "lua_ls",
     "solargraph",
-    "sumneko_lua",
     "tsserver",
+    -- "ruby_ls", -- To check: Shopify ruby-lsp - still misses a lot of features so far
   },
 })
 -- NOTE: Mason could also be used to install directly formatters and linters
@@ -69,15 +69,22 @@ require("lspconfig").bashls.setup({
 })
 
 -- lua
-require("lspconfig").sumneko_lua.setup({
+require("lspconfig").lua_ls.setup({
   settings = {
     Lua = {
       runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = "LuaJIT",
       },
       diagnostics = {
+        -- Get the language server to recognize the `vim` global
         globals = { "vim" },
       },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
         enable = false,
       },
@@ -122,11 +129,15 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
--- UI
+---------- UI ----------
 
 -- LspSaga
 -- TODO: Fix display issue when split is too narrow
-require("lspsaga").init_lsp_saga()
+require("lspsaga").setup({
+  symbol_in_winbar = {
+    enable = false,
+  },
+})
 
 -- fidget
 -- Show running LSP servers

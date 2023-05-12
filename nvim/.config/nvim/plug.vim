@@ -30,8 +30,9 @@ Plug 'vim-test/vim-test'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'glepnir/dashboard-nvim'
+Plug 'glepnir/dashboard-nvim', { 'commit': 'bd7163f56ac715a6d687737ea144731ac6ce8478' } " TODO: Unpin or change plugin
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'elixir-editors/vim-elixir'
@@ -46,8 +47,11 @@ Plug 'ggandor/flit.nvim'
 Plug 'gorbit99/codewindow.nvim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'j-hui/fidget.nvim'
-Plug 'karb94/neoscroll.nvim'
 Plug 'mechatroner/rainbow_csv'
+Plug 'mbbill/undotree'
+Plug 'rcarriga/nvim-notify' " used by ror
+Plug 'stevearc/dressing.nvim' " used by ror
+Plug 'weizheheng/ror.nvim'
 
 " Custom text objects
 Plug 'kana/vim-textobj-user'

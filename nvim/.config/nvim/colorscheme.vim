@@ -8,6 +8,12 @@ let g:material_theme_style = 'default'
 
 colorscheme material
 
+" default background
+highlight Normal guibg=#1e272e
+
+" windows separator
+highlight VertSplit guifg=#374855
+
 " The JSON standard does not support comments (by design)
 " So the default highlight is a bit aggressive for my poor eyes
 highlight jsonCommentError guibg=#734720
@@ -68,9 +74,9 @@ highlight DashboardFooter guifg=#bdc3c7
 " highlight DashboardShortCut
 
 " vim-illuminate
-highlight IlluminatedWordText guibg=#405159
-highlight IlluminatedWordRead guibg=#405159
-highlight IlluminatedWordWrite guibg=#405159
+highlight IlluminatedWordText guibg=#405159 gui=nocombine
+highlight IlluminatedWordRead guibg=#405159 gui=nocombine
+highlight IlluminatedWordWrite guibg=#405159 gui=nocombine
 
 " Telescope
 highlight TelescopePromptNormal guibg=#333A40
@@ -82,3 +88,11 @@ highlight TelescopePreviewNormal guibg=#252d33
 highlight TelescopePreviewBorder guibg=#252d33 guifg=#252d33
 highlight TelescopePreviewTitle guibg=#83C092
 highlight TelescopeSelection guibg=#333A40
+
+" Treesitter context
+highlight TreesitterContext guibg=#073148
+highlight TreesitterContextLineNumber guifg=#3498db
+" hi TreesitterContextBottom gui=underline guisp=Grey
+
+" NvimTree
+highlight NvimTreeNormal guibg=#192127

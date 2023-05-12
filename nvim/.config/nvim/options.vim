@@ -55,3 +55,6 @@ augroup END
 autocmd FileType python setlocal shiftwidth=4 softtabstop=4 tabstop=4
 autocmd FileType go setlocal shiftwidth=4 softtabstop=4 tabstop=4 noexpandtab
 autocmd BufNewFile,BufRead Brewfile,.Brewfile set filetype=ruby
+
+" Highlight on yank (:h lua-highlight)
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=220}

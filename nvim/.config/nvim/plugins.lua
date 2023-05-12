@@ -8,8 +8,8 @@ require("gitsigns").setup({
   },
   preview_config = {
     -- Options passed to nvim_open_win
-    border = 'none',
-    style = 'minimal',
+    border = "none",
+    style = "minimal",
     -- relative = 'cursor',
     -- row = 0,
     -- col = 1,
@@ -22,29 +22,46 @@ require("better_escape").setup({
 })
 
 -- ===== nvim-tree =====
-local tree_cb = require("nvim-tree.config").nvim_tree_callback
+local function nvim_tree_on_attach(bufnr)
+  local api = require("nvim-tree.api")
 
-local nvim_tree_mapping = {
-  { key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
-  { key = "h", cb = tree_cb("close_node") },
-  { key = "v", cb = tree_cb("vsplit") },
-  { key = "s", cb = tree_cb("split") },
-  { key = "?", cb = tree_cb("toggle_help") },
-}
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- Default mappings.
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- Custom Mappings
+  vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
+  vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
+  vim.keymap.set("n", "o", api.node.open.edit, opts("Open"))
+  vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
+  vim.keymap.set("n", "v", api.node.open.vertical, opts("Open: Vertical Split"))
+  vim.keymap.set("n", "s", api.node.open.horizontal, opts("Open: Horizontal Split"))
+  vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+end
 
 require("nvim-tree").setup({
-  actions = {
-    open_file = {
-      quit_on_open = true,
-    },
-  },
+  on_attach = nvim_tree_on_attach,
   git = {
     enable = false,
   },
-  view = {
-    mappings = {
-      custom_only = false,
-      list = nvim_tree_mapping,
+  renderer = {
+    icons = {
+      symlink_arrow = " ➛ ",
+      show = {
+        folder = false,
+      },
+    },
+  },
+  actions = {
+    open_file = {
+      resize_window = true,
+      quit_on_open = true,
+      window_picker = {
+        enable = false,
+      },
     },
   },
 })
@@ -135,11 +152,13 @@ require("nvim-treesitter.configs").setup({
     "go",
     "sql",
     "markdown",
+    "markdown_inline",
     "typescript",
     "pug",
     "glimmer",
   },
   sync_install = false,
+  auto_install = true,
   highlight = {
     enable = true,
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -149,6 +168,8 @@ require("nvim-treesitter.configs").setup({
     additional_vim_regex_highlighting = true,
   },
 })
+
+require("treesitter-context").setup({})
 
 require("lualine").setup({
   options = {
@@ -261,7 +282,7 @@ dashboard.custom_center = {
 }
 
 dashboard.custom_header = dashboard_header
-dashboard.custom_footer = { (vim.fn.getcwd():gsub('/Users/vincent.durewski', '')) }
+dashboard.custom_footer = { (vim.fn.getcwd():gsub("/Users/vincent.durewski", "")) }
 dashboard.hide_statusline = true
 dashboard.hide_tabline = true
 dashboard.header_pad = 1
@@ -311,6 +332,7 @@ require("codewindow").setup({})
 -- ===== nvim-web-devicons  =====
 -- override dev icons
 -- https://github.com/nvim-tree/nvim-web-devicons/blob/master/lua/nvim-web-devicons.lua
+-- https://www.nerdfonts.com/cheat-sheet
 require("nvim-web-devicons").set_icon({
   rb = {
     icon = "",
@@ -337,7 +359,37 @@ require("nvim-web-devicons").set_icon({
     color = "#e74c3c",
     name = "Rake",
   },
+  ["dockerfile"] = {
+    icon = "",
+    color = "#458ee6",
+    cterm_color = "68",
+    name = "Dockerfile",
+  },
+  ["docker-compose.yml"] = {
+    icon = "",
+    color = "#458ee6",
+    cterm_color = "68",
+    name = "Dockerfile",
+  },
 })
 
--- ===== neoscroll =====
-require("neoscroll").setup({ easing_function = "quadratic" })
+-- ===== nvim-notify =====
+vim.notify = require("notify")
+
+-- ===== dressing =====
+require("dressing").setup({
+  input = {
+    min_width = { 60, 0.9 },
+  },
+})
+
+-- ===== ror.nvim =====
+require("ror").setup({
+  test = {
+    notification = {
+      timeout = false,
+    },
+    pass_icon = "✅",
+    fail_icon = "❌",
+  },
+})
