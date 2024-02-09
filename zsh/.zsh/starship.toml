@@ -1,0 +1,58 @@
+## ░█▀▀░▀█▀░█▀█░█▀▄░█▀▀░█░█░▀█▀░█▀█
+## ░▀▀█░░█░░█▀█░█▀▄░▀▀█░█▀█░░█░░█▀▀
+## ░▀▀▀░░▀░░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░░
+
+# Setups
+format="$directory$git_branch$git_status$line_break$character"
+right_format = """$cmd_duration"""
+add_newline = true
+
+# Other languages configurations:
+# c.disabled = true
+# cmake.disabled = true
+# haskell.disabled = true
+# python.disabled = true
+# ruby.disabled = true
+# rust.disabled = true
+# perl.disabled = true
+# package.disabled = true
+# lua.disabled = true
+# nodejs.disabled = true
+# java.disabled = true
+# golang.disabled = true
+
+[character]
+success_symbol = "[❯](fg:#87af00 bold)"
+
+[directory]
+format = "[]($style)[ ](bg:#374855 fg:#81A1C1)[$path](bg:#374855 fg:#bdc3c7)[ ]($style)"
+# format = "[  ](fg:#81A1C1)[$path](fg:#BBC3DF bold)"
+style = "bg:none fg:#374855"
+truncation_length = 3
+truncate_to_repo=false
+
+[git_branch]
+format = "[]($style)[[ ](bg:#374855 fg:#f39c12 bold)$branch](bg:#374855 fg:#f39c12)[ ]($style)"
+style = "bg:none fg:#374855"
+
+[git_status]
+format = "[]($style)[$all_status$ahead_behind](bg:#374855 fg:#e67e22 bold)[ ]($style)"
+style = "bg:none fg:#374855"
+# conflicted = "="
+# ahead =	"⇡${count}"
+# behind = "⇣${count}"
+# diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+# up_to_date = ""
+# untracked = "?${count}"
+# stashed = ""
+# modified = "!${count}"
+# staged = "+${count}"
+# renamed = "»${count}"
+# deleted = "${count}"
+
+[cmd_duration]
+min_time = 1
+# duration & style 
+format = "[]($style)[[神](bg:#374855 fg:#eba0ac bold)$duration](bg:#374855 fg:#BBC3DF)[ ]($style)"
+disabled = false
+style = "bg:none fg:#374855"

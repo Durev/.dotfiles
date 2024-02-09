@@ -10,6 +10,7 @@ alias gm="git merge"
 alias gst="git status -sb"
 alias gdfc="git diff --cached"
 alias glg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gw="git worktree"
 
 # git-flow
 alias gffs="git flow feature start"
@@ -25,11 +26,15 @@ alias dbmigrate="bundle exec rake db:migrate db:rollback && bundle exec rake db:
 
 # rubocop
 alias ra="rubocop -a"
+alias rA="rubocop -A"
 alias rag="git status --porcelain | cut -c4- | xargs rubocop -a"
 
 # bundler
 alias be="bundle exec"
 alias bel="BUNDLE_GEMFILE='private/LocalGemfile' bundle exec"
+
+# rspec
+alias bers="bundle exec rspec --format doc"
 
 # navigation
 alias dotfiles="cd $DOTFILES"

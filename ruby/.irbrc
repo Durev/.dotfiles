@@ -3,6 +3,7 @@ begin
   require 'irb/completion'
   require 'rubygems'
   require 'pry'
+  require 'awesome_print'
 rescue LoadError => e
   p e
 end

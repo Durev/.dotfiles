@@ -17,7 +17,7 @@ export GOBIN="$GOPATH/bin"
 export PATH="$PATH:$GOBIN"
 
 # Homebrew: Only update explicitely required packages
-export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_UPGRADE=1
 
 # fzf
 export FZF_DEFAULT_COMMAND="fd --type file --color=always --strip-cwd-prefix --hidden"

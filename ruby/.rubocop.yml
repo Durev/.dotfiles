@@ -6,6 +6,7 @@ AllCops:
     - 'vendor/**/*'
     - 'lib/generators/**/*'
   SuggestExtensions: false
+  NewCops: disable
 
 Bundler/OrderedGems:
   Enabled: true
@@ -271,7 +272,7 @@ Style/MethodCallWithArgsParentheses:
     - "config/routes/*"
     - "Gemfile"
   IgnoreMacros: true
-  IgnoredMethods:
+  AllowedMethods:
     - include
     - load
     - print

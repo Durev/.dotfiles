@@ -55,6 +55,36 @@ fco() {
   git checkout $(echo "$target" | awk '{print $2}')
 }
 
+# git rebase branch/tag x fzf
+frb() {
+  local tags branches target
+  tags=$(
+    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  branches=$(
+    git branch --all | grep -v HEAD             |
+    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$tags"; echo "$branches") |
+    fzf-tmux -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
+  git rebase $(echo "$target" | awk '{print $2}')
+}
+
+# switch git worktree x fzf
+fgw() {
+  local worktrees target
+
+  worktrees=$(
+    git worktree list --porcelain |
+    awk -F " " '/worktree/ {print "\x1b[32;1mworktree\x1b[m\t" $2}') || return
+
+  target=$(
+    echo "$worktrees" |
+    fzf-tmux -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
+
+  cd "$(echo "$target" | awk '{print $2}')"
+}
+
 # git merge x fzf
 fgm() {
   git merge $(select_branch_or_tag)
@@ -121,4 +151,9 @@ lf () {
     cd -- "$(cat "$tempfile")" || return
   fi
   command rm -f -- "$tempfile" 2>/dev/null
+}
+
+# print filesize in human readable format
+file_size() {
+  du -h "$1" | cut -f1
 }
