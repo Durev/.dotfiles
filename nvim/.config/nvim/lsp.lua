@@ -114,8 +114,8 @@ require("lspconfig").eslint.setup({})
 -- diagnostics
 -- TODO: add mapping to toggle sign/virtual_text
 vim.diagnostic.config({
-  virtual_text = true,
-  signs = false,
+  virtual_text = false,
+  signs = true,
   underline = false,
   update_in_insert = false,
   -- float = { border = "single" },

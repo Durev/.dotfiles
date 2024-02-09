@@ -93,6 +93,10 @@ keymap("i", "kj", "<esc>", opts)
 keymap("v", ">", ">gv", opts)
 keymap("v", "<", "<gv", opts)
 
+-- Move up and down by visible lines if current line is wrapped
+keymap("v", "j", "gj", opts)
+keymap("v", "k", "gk", opts)
+
 -- Jump to last non-whitespace character
 keymap("v", "$", "g_", opts)
 
@@ -115,6 +119,15 @@ local which_key_n_opts = {
   noremap = true,
   nowait = false,
 }
+
+-- Find tag
+vim.api.nvim_create_user_command("FindTag", function()
+  local cword = vim.fn.expand("<cword>")
+
+  require("telescope.builtin").tags({
+    default_text = cword,
+  })
+end, { nargs = 0 })
 
 local n_mappings = {
   g = {
@@ -142,6 +155,11 @@ local n_mappings = {
       b = { "<cmd>Telescope git_branches<cr>", "branches" },
       s = { "<cmd>Telescope git_status<cr>", "status" },
     },
+    w = {
+      name = "Worktrees",
+      s = { "<cmd>Telescope git_worktree git_worktrees<cr>", "switch" },
+      c = { "<cmd>Telescope git_worktree create_git_worktree<cr>", "create" },
+    },
   },
   h = {
     name = "Hunks",
@@ -167,6 +185,7 @@ local n_mappings = {
     t = { ":w<cr> :TestFile<cr>", "file" },
     l = { ":w<cr> :TestLast<cr>", "last" },
     n = { ":w<cr> :TestNearest<cr>", "nearest" },
+    b = { "obinding.break<esc>", "Insert debugger entry point" },
   },
   n = {
     name = "Nvim-Tree",
@@ -180,10 +199,10 @@ local n_mappings = {
     s = { "<cmd>Telescope grep_string<cr>", "Grep string under cursor" },
     r = { "<cmd>Telescope lsp_references show_line=false<cr>", "LSP references" },
     d = { "<cmd>Telescope lsp_definitions<cr>", "LSP definitions" }, -- go to def or show list if multiple defs
+    t = { "<cmd>FindTag<cr>", "Find Tag" },
   },
   l = {
     name = "LSP",
-    f = { "<cmd>Lspsaga lsp_finder<cr>", "Finder" },
     r = { "<cmd>Lspsaga rename<cr>", "Rename" },
     o = { "<cmd>Format<cr>", "Format" },
   },
@@ -206,6 +225,8 @@ local n_mappings = {
   [","] = { "m`A,<Esc>``", "Append `,` at eol" },
   -- Code actions
   ["ca"] = { "<cmd>Lspsaga code_action<cr>", "Code Actions" },
+  -- Debug
+  ["-"] = { "op '🤟' * 50<esc>", "Insert ruby puts" },
 }
 
 ----------------------- Visual -----------------------

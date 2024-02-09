@@ -99,7 +99,7 @@ require("telescope").setup({
       "rg",
       "--hidden",
       "-g",
-      "!.git/", -- exlclude .git folder
+      "!{.git/,tags}", -- excluded folders and files
       -- "--color=never",
       "--no-heading",
       "--line-number",
@@ -141,21 +141,26 @@ require("telescope").setup({
 -- ===== Treesitter =====
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
-    "ruby",
-    "lua",
     "bash",
+    "dockerfile",
     "elixir",
+    "gitignore",
+    "glimmer",
+    "go",
     "html",
-    "vim",
     "javascript",
     "json",
-    "go",
-    "sql",
+    "lua",
     "markdown",
     "markdown_inline",
-    "typescript",
     "pug",
-    "glimmer",
+    "ruby",
+    "scss",
+    "sql",
+    "typescript",
+    "vim",
+    "xml",
+    "yaml",
   },
   sync_install = false,
   auto_install = true,
@@ -167,6 +172,7 @@ require("nvim-treesitter.configs").setup({
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = true,
   },
+  indent = { enable = false },
 })
 
 require("treesitter-context").setup({})
@@ -186,6 +192,7 @@ require("lualine").setup({
         shorting_target = 40, -- Shortens path to leave 40 spaces in the window
       },
     },
+    lualine_y = {}, -- Hide progress %
   },
 })
 
@@ -233,7 +240,7 @@ local dashboard_header = {
 
 local update_plugins = function()
   vim.cmd([[
-  let s:filepath = $DOTFILES . '/nvim/plugins_snapshop_' . strftime('%Y-%m-%d-%H:%M:%S') . '.vim'
+  let s:filepath = $DOTFILES . '/nvim/snapshots/plugins_snapshop_' . strftime('%Y-%m-%d-%H:%M:%S') . '.vim'
 
   execute ':PlugSnapshot 's:filepath''
 
@@ -393,3 +400,15 @@ require("ror").setup({
     fail_icon = "❌",
   },
 })
+
+-- ===== ThePrimeagen =====
+-- ===== git-worktree =====
+require("git-worktree").setup({
+    change_directory_command = "cd" -- default: "cd",
+    -- update_on_change = <boolean> -- default: true,
+    -- update_on_change_command = <str> -- default: "e .",
+    -- clearjumps_on_change = <boolean> -- default: true,
+    -- autopush = <boolean> -- default: false,
+})
+
+require("telescope").load_extension("git_worktree")

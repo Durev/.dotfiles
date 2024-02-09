@@ -24,11 +24,10 @@ Plug 'sickill/vim-pasta'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'max397574/better-escape.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-tree/nvim-web-devicons', { 'tag': 'nerd-v2-compat' }
+Plug 'nvim-tree/nvim-tree.lua'
 Plug 'vim-test/vim-test'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'nvim-lua/plenary.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim', { 'commit': '9637670' } " TODO: Unpin and finish v3 update
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'glepnir/dashboard-nvim', { 'commit': 'bd7163f56ac715a6d687737ea144731ac6ce8478' } " TODO: Unpin or change plugin
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -46,18 +45,19 @@ Plug 'ggandor/leap.nvim'
 Plug 'ggandor/flit.nvim'
 Plug 'gorbit99/codewindow.nvim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-Plug 'j-hui/fidget.nvim'
+Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' } " Pin to avoid breaking changes at rewrite
 Plug 'mechatroner/rainbow_csv'
 Plug 'mbbill/undotree'
 Plug 'rcarriga/nvim-notify' " used by ror
 Plug 'stevearc/dressing.nvim' " used by ror
 Plug 'weizheheng/ror.nvim'
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 " Custom text objects
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock'
 
-" LSP & completion
+" LSP, completion & AI stuff
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
@@ -66,7 +66,6 @@ Plug 'hrsh7th/cmp-nvim-lua' " source for neovim lua API
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'zbirenbaum/copilot.lua' " using lua rewrite

@@ -40,8 +40,12 @@ highlight DiffDelete guibg=#694e37
 highlight DiffChange guibg=#695e35
 
 " indent blank lines (cf. help indent-blankline)
+" v2
 highlight IndentBlanklineChar guifg=#3d4e57 gui=nocombine
 highlight IndentBlanklineContextChar guifg=#f1c40f gui=nocombine
+" v3
+" highlight IblIndent guifg=#3d4e57 gui=nocombine
+" highlight IblScope guifg=#f1c40f gui=nocombine
 
 " Cmp
 " list of item kinds: https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/types/lsp.lua

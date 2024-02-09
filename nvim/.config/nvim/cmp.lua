@@ -56,7 +56,6 @@ cmp.setup({
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "buffer" },
-    { name = "cmp_tabnine" },
     { name = "path" },
   },
   formatting = {
@@ -69,7 +68,6 @@ cmp.setup({
         nvim_lua = "[Nvim]",
         luasnip = "[Sn]",
         buffer = "[Bu]",
-        cmp_tabnine = "[T9]",
         path = "[Path]",
         copilot = "",
       })[entry.source.name]
@@ -140,16 +138,6 @@ end)
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip").filetype_extend("ruby", { "rails" })
 require("luasnip").filetype_extend("hbs", { "html" })
-
--- ===== Tabnine setup =====
-require("cmp_tabnine").setup({
-  max_lines = 1000,
-  max_num_results = 5,
-  sort = true,
-  run_on_every_keystroke = true,
-  snippet_placeholder = "..",
-  ignored_file_types = {},
-})
 
 -- Copilot
 require("copilot").setup({
