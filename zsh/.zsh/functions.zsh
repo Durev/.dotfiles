@@ -40,32 +40,28 @@ git_current_branch() {
   echo ${ref#refs/heads/}
 }
 
-# git checkout branch/tag x fzf
+# git checkout branch x fzf
 fco() {
-  local tags branches target
-  tags=$(
-    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  local branches target
   branches=$(
     git branch --all | grep -v HEAD             |
     sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
     sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
-    (echo "$tags"; echo "$branches") |
+    (echo "$branches") |
     fzf-tmux -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
 
-# git rebase branch/tag x fzf
+# git rebase branch x fzf
 frb() {
-  local tags branches target
-  tags=$(
-    git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  local branches target
   branches=$(
     git branch --all | grep -v HEAD             |
     sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
     sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
   target=$(
-    (echo "$tags"; echo "$branches") |
+    (echo "$branches") |
     fzf-tmux -l30 -- --no-hscroll --ansi +m -d "\t" -n 2) || return
   git rebase $(echo "$target" | awk '{print $2}')
 }
@@ -116,20 +112,35 @@ gcm() {
   git checkout $(main_or_master)
 }
 
-# pull main/master and merge in current branch
+# fetch main/master and merge in current branch
 mma() {
-  git checkout $(main_or_master)
-  git pull
-  git checkout -
-  git merge $(main_or_master)
+  git fetch origin $(main_or_master)
+  git merge origin/$(main_or_master)
 }
 
-# pull main/master and rebase in current branch
+# fetch main/master and rebase in current branch
 rbma() {
-  git checkout $(main_or_master)
-  git pull
-  git checkout -
-  git rebase $(main_or_master)
+  git fetch origin $(main_or_master)
+  git rebase origin/$(main_or_master)
+}
+
+# rebase interative with autosquash on current version of main/master
+riama() {
+  git rebase -i --autosquash --no-edit origin/$(main_or_master)
+}
+
+# commit the staged changes as a fixup using fzf to select the commit
+fixup() {
+ local commits
+ local commit
+ local commit_hash
+
+ commits="$(git log --abbrev-commit --decorate --format=format:'%C(magenta)%h%C(reset) - %s%C(reset) %C(cyan)' -50)"
+
+ commit="$(echo "$commits" | fzf-tmux +m)" || return
+ commit_hash="$(echo "$commit" | cut -d ' ' -f 1)"
+
+ git commit --fixup=$commit_hash
 }
 
 # git push (with the upstream not set yet)
@@ -140,6 +151,20 @@ fgp() {
 # Clean local branches
 git_cleanup() {
   git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
+}
+
+# Checkout on master and start fresh
+git_update() {
+  gcm
+  git pull
+  git_cleanup
+
+  if [ -f Gemfile ]; then
+    echo "Installing gems..."
+    bundle install
+  else
+    echo "No Gemfile found in the current directory."
+  fi
 }
 
 # lf: bind Q to 'quit and move to current directory'
@@ -157,3 +182,18 @@ lf () {
 file_size() {
   du -h "$1" | cut -f1
 }
+
+# decode base64 and jwt
+_decode_base64_url() {
+  local len=$((${#1} % 4))
+  local result="$1"
+  if [ $len -eq 2 ]; then result="$1"'=='
+  elif [ $len -eq 3 ]; then result="$1"'='
+  fi
+  echo "$result" | tr '_-' '/+' | base64 -d
+}
+
+# $1 => JWT to decode
+# $2 => either 1 for header or 2 for body (default is 2)
+decode_jwt() { _decode_base64_url $(echo -n $1 | cut -d "." -f ${2:-2}) | jq .; }
+decode_jwtp() { decode_jwt "$(pbpaste)" }
