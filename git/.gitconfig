@@ -1,0 +1,16 @@
+[user]
+  email = vincent.durewski@gmail.com
+  name = Vincent Durewski
+[alias]
+  yolo = push --force-with-lease
+  wta = worktree add
+  wtl = worktree list
+  wtr = worktree remove
+  stap = stash push
+  ca = commit --amend
+  cane = commit --amend --no-edit
+[core]
+  pager = delta
+  excludesfile = ~/.gitignore_global
+[includeIf "gitdir:~/Dev/lifen/"]
+  path = ~/.gitconfig.lifen

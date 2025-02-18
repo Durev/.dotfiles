@@ -1,3 +1,7 @@
 zsh/plugins
-# aliases for private projects
-aliases.local.zsh
+nvim/snapshots
+nvim/sessions
+
+# for private projects
+*.local.zsh
+raycast-scripts/.config/raycast-scripts/lifen_*
