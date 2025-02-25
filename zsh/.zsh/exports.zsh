@@ -41,3 +41,6 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@11/lib/pkgconfig"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
+
+# lua
+export PATH="$HOME/.luarocks/bin:$PATH"

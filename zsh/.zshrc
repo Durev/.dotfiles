@@ -17,6 +17,9 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# z
+source $(brew --prefix)/etc/profile.d/z.sh
+
 # ------- Settings & Options -------
 # Disable flow control commands (keeps C-s from freezing everything)
 stty start undef

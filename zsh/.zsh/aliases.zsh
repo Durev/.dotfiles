@@ -12,6 +12,9 @@ alias gdfc="git diff --cached"
 alias glg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gw="git worktree"
 
+# github cli
+alias ghprc="gh pr create --web"
+
 # git-flow
 alias gffs="git flow feature start"
 alias gfrs="git flow release start"
@@ -21,17 +24,19 @@ alias gfrf="git flow release finish"
 alias rc="rails console"
 alias rs="rails server"
 alias rr="rails routes"
-alias rrg="rails routes | grep"
+alias rrg="rails routes -g"
+alias rrgE="rails routes -E -g"
 alias dbmigrate="bundle exec rake db:migrate db:rollback && bundle exec rake db:migrate db:test:prepare"
 
 # rubocop
-alias ra="rubocop -a"
-alias rA="rubocop -A"
+alias ra="bundle exec rubocop -a"
+alias rA="bundle exec rubocop -A"
 alias rag="git status --porcelain | cut -c4- | xargs rubocop -a"
 
 # bundler
 alias be="bundle exec"
 alias bel="BUNDLE_GEMFILE='private/LocalGemfile' bundle exec"
+alias glbi="git pull && bundle install"
 
 # rspec
 alias bers="bundle exec rspec --format doc"
