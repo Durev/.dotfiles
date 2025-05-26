@@ -1,0 +1,146 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Editor",
+    "use_key_equivalents": true,
+    "bindings": {
+      "ctrl-s": "workspace::Save",
+      // --- Navigate panes
+      // Already defined in Dock context but needs to be redefined in Editor context in order to
+      // take precedence over existing bindings
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      // --- Split in the right direction
+      "ctrl-w s": "pane::SplitDown",
+      "ctrl-w v": "pane::SplitRight"
+    }
+  },
+
+  // Leader key
+  {
+    "context": "Editor && vim_mode == normal",
+    "use_key_equivalents": true,
+    "bindings": {
+      // Nvim like: Y yanks to eol
+      "shift-y": ["workspace::SendKeystrokes", "y $"],
+      // Move up and down by visible lines if current line is wrapped
+      "j": ["workspace::SendKeystrokes", "g j"],
+      "k": ["workspace::SendKeystrokes", "g k"],
+      // Toggle assistant
+      "space a": "workspace::ToggleRightDock",
+      // --- Tasks: Tests
+      "space t t": ["task::Spawn", { "task_name": "Test File" }],
+      "space t n": ["task::Spawn", { "task_name": "Test Nearest" }],
+      "space t l": "task::Rerun",
+      // Find
+      "space f f": ["workspace::SendKeystrokes", "cmd-shift-f"],
+      "space f s": [
+        "workspace::SendKeystrokes",
+        "y i w cmd-shift-f cmd-v enter"
+      ],
+      // --- Diagnostics
+      "space i n": "editor::GoToDiagnostic",
+      "space i l": "editor::GoToPreviousDiagnostic",
+      // --- Git
+      "space h s": "git::ToggleStaged",
+      "space h u": "git::Restore",
+      // --- Panels
+      "space n t": "project_panel::ToggleFocus",
+      "space g s": "git_panel::ToggleFocus"
+      // "space t": "terminal_panel::ToggleFocus"
+      // "cmd-h": "workspace::ToggleLeftDock",
+      // "cmd-l": "workspace::ToggleRightDock",
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "use_key_equivalents": true,
+    "bindings": {
+      "space a": "assistant::QuoteSelection"
+    }
+  },
+  {
+    "context": "AssistantPanel && vim_mode == visual",
+    "use_key_equivalents": true,
+    "bindings": {
+      "space i": "assistant::InsertIntoEditor"
+    }
+  },
+
+  // VIM
+  {
+    "context": "vim_mode == insert",
+    "use_key_equivalents": true,
+    "bindings": {
+      "j k": "vim::NormalBefore",
+      "k j": "vim::NormalBefore",
+      "ctrl-s": ["workspace::SendKeystrokes", "escape cmd-s"]
+    }
+  },
+  {
+    "context": "vim_mode == normal",
+    "use_key_equivalents": true,
+    "bindings": {
+      // --- Quick split
+      "v v": "pane::SplitRight",
+      "s s": "pane::SplitDown",
+      "Q": ["workspace::SendKeystrokes", "cmd-s cmd-w"],
+      // --- Git hunks
+      "space h n": "editor::GoToHunk",
+      "space h l": "editor::GoToPreviousHunk",
+      // --- Diagnostics
+      "space i n": "editor::GoToDiagnostic",
+      "space i l": "editor::GoToPreviousDiagnostic",
+      // --- Navigate panes
+      "left": "pane::ActivatePreviousItem",
+      "right": "pane::ActivateNextItem",
+      // --- Navigate paragraphs
+      "up": ["workspace::SendKeystrokes", "{"],
+      "down": ["workspace::SendKeystrokes", "}"]
+    }
+  },
+  {
+    "context": "Dock",
+    "use_key_equivalents": true,
+    "bindings": {
+      // --- Navigate panes
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w l": "workspace::ActivatePaneRight",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "use_key_equivalents": true,
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "r": "project_panel::Rename",
+      "d": ["project_panel::Delete", { "skip_prompt": false }],
+      "q": ["workspace::SendKeystrokes", "cmd-b"],
+      "Y": "workspace::CopyRelativePath",
+      "x": "project_panel::Cut",
+      "c": "project_panel::Copy",
+      "p": "project_panel::Paste"
+    }
+  },
+  {
+    "context": "GitPanel && ChangesList",
+    "use_key_equivalents": true,
+    "bindings": {
+      "q": ["workspace::SendKeystrokes", "cmd-b"]
+    }
+  }
+]
