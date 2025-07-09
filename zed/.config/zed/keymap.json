@@ -7,6 +7,13 @@
 // from the command palette.
 [
   {
+    "context": "Workspace",
+    "use_key_equivalents": true,
+    "bindings": {
+      "cmd-t": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
     "context": "Editor",
     "use_key_equivalents": true,
     "bindings": {
@@ -54,6 +61,7 @@
       "space h u": "git::Restore",
       // --- Panels
       "space n t": "project_panel::ToggleFocus",
+      "space n f": "pane::RevealInProjectPanel",
       "space g s": "git_panel::ToggleFocus"
       // "space t": "terminal_panel::ToggleFocus"
       // "cmd-h": "workspace::ToggleLeftDock",
@@ -90,12 +98,13 @@
     "use_key_equivalents": true,
     "bindings": {
       // --- Quick split
-      "v v": "pane::SplitRight",
-      "s s": "pane::SplitDown",
+      "space v v": "pane::SplitRight",
+      // "space s s": "pane::SplitDown", # actually I rately use this - might as well just use the command
       "Q": ["workspace::SendKeystrokes", "cmd-s cmd-w"],
       // --- Git hunks
       "space h n": "editor::GoToHunk",
       "space h l": "editor::GoToPreviousHunk",
+      "space h p": "editor::ToggleSelectedDiffHunks",
       // --- Diagnostics
       "space i n": "editor::GoToDiagnostic",
       "space i l": "editor::GoToPreviousDiagnostic",
@@ -133,7 +142,8 @@
       "Y": "workspace::CopyRelativePath",
       "x": "project_panel::Cut",
       "c": "project_panel::Copy",
-      "p": "project_panel::Paste"
+      "p": "project_panel::Paste",
+      "W": "project_panel::CollapseAllEntries"
     }
   },
   {
