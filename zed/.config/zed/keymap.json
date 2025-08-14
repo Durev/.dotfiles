@@ -94,6 +94,15 @@
     }
   },
   {
+    "context": "vim_mode == visual",
+    "use_key_equivalents": true,
+    "bindings": {
+      // --- Navigate paragraphs
+      "up": ["workspace::SendKeystrokes", "{"],
+      "down": ["workspace::SendKeystrokes", "}"]
+    }
+  },
+  {
     "context": "vim_mode == normal",
     "use_key_equivalents": true,
     "bindings": {

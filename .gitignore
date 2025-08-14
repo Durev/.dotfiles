@@ -1,6 +1,9 @@
 zsh/plugins
 nvim/snapshots
 nvim/sessions
+zed/.config/zed/conversations/
+zed/.config/zed/prompts/
+zed/.config/zed/settings_backup.json
 
 # for private projects
 *.local.zsh
