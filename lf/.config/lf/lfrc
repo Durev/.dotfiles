@@ -6,7 +6,7 @@ cmd finder %open .
 map o finder
 
 # Trash
-cmd trash %set -f; mv $fx ~/.Trash
+cmd trash %set -f; for f in $fx; do b="$(basename "$f")"; d="$HOME/.Trash/$b"; [ -e "$d" ] && mv "$f" "$HOME/.Trash/$b $(date +%Y%m%d%H%M%S)" || mv "$f" "$HOME/.Trash/"; done
 map <backspace2> trash
 
 # Show hidden files
