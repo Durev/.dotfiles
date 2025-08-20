@@ -7,29 +7,6 @@ end
 -- LSP debugging
 -- vim.lsp.set_log_level("debug")
 
--- mason
-require("mason").setup({
-  ui = {
-    icons = {
-      package_installed = "✓",
-      package_pending = "➜",
-      package_uninstalled = "✗",
-    },
-  },
-})
-
--- mason-lspconfig
-require("mason-lspconfig").setup({
-  ensure_installed = {
-    "bashls",
-    "elixirls",
-    "eslint",
-    "lua_ls",
-    "solargraph",
-    "tsserver",
-    -- "ruby_ls", -- To check: Shopify ruby-lsp - still misses a lot of features so far
-  },
-})
 -- NOTE: Mason could also be used to install directly formatters and linters
 
 local null_ls = require("null-ls")
@@ -50,10 +27,9 @@ null_ls.setup({
 
 -- Format current buffer
 vim.api.nvim_create_user_command("Format", function()
-  vim.lsp.buf.format({ timeout_ms = 2000 })
+  vim.lsp.buf.format({ timeout_ms = 4000 })
 end, { nargs = 0 })
 
--- ruby
 require("lspconfig").solargraph.setup({
   settings = {
     solargraph = {
@@ -62,6 +38,8 @@ require("lspconfig").solargraph.setup({
     },
   },
 })
+
+-- require("lspconfig").ruby_ls.setup{}
 
 -- bash
 require("lspconfig").bashls.setup({
@@ -99,7 +77,7 @@ require("lspconfig").elixirls.setup({})
 require("lspconfig").gopls.setup({})
 
 -- typescript
-require("lspconfig").tsserver.setup({
+require("lspconfig").ts_ls.setup({
   on_attach = function(client, bufnr)
     -- Use prettier instead for formatting
     client.server_capabilities.documentFormattingProvider = false
@@ -132,6 +110,12 @@ end
 ---------- UI ----------
 
 -- LspSaga
+
+-- FIXME: symbols are slow af
+-- is it just with ruby?
+-- looks worse with smooth scrolling
+-- does it come from the language server?
+
 -- TODO: Fix display issue when split is too narrow
 require("lspsaga").setup({
   symbol_in_winbar = {
@@ -139,6 +123,8 @@ require("lspsaga").setup({
   },
 })
 
+-- To cleanup
+-- duplicate with Noice
 -- fidget
 -- Show running LSP servers
-require("fidget").setup({})
+-- require("fidget").setup({})

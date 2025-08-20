@@ -2,6 +2,7 @@ Brewfile.lock.json
 zsh/plugins
 nvim/snapshots
 nvim/sessions
+nvim/.config/nvim/sessions
 zed/.config/zed/conversations/
 zed/.config/zed/prompts/
 zed/.config/zed/settings_backup.json

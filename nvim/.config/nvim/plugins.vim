@@ -23,8 +23,9 @@ if empty(maparg('<CR>', 'i'))
   imap <CR> <Plug>delimitMateCR
 endif
 
+" TODO: It works without? -> cleanup
 " --- vim-textobj-rubyblock ---
-runtime macros/matchit.vim
+" runtime macros/matchit.vim
 
 " --- vim-commentary ---
 autocmd FileType elixir setlocal commentstring=#\ %s

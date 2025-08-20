@@ -132,7 +132,12 @@ end, { nargs = 0 })
 local n_mappings = {
   g = {
     name = "Git",
-    b = { "<cmd>Gitsigns blame_line<cr>", "blame line" },
+    s = { "<cmd>Git<cr>", "status" },
+    b = {
+      name = "Blame",
+      t = { "<cmd>Gitsigns blame_line<cr>", "toggle" },
+      g = { "<cmd>GitBlameOpenCommitURL<cr>", "go to Github" },
+    },
     d = { "<cmd>DiffviewOpen<cr>", "diff" },
     c = {
       name = "Conflicts",
@@ -163,25 +168,32 @@ local n_mappings = {
   },
   h = {
     name = "Hunks",
+    icon = "",
     l = { "<cmd>Gitsigns prev_hunk<cr>", "last" },
     n = { "<cmd>Gitsigns next_hunk<cr>", "next" },
     p = { "<cmd>Gitsigns preview_hunk<cr>", "preview" },
     s = { "<cmd>Gitsigns stage_hunk<cr>", "stage" },
     u = { "<cmd>Gitsigns reset_hunk<cr>", "undo" },
   },
-  b = {
-    name = "Buffers",
-    s = { "<cmd>BufferLineSortByTabs<cr>", "sort" },
-  },
-  d = {
+  -- b = {
+  --   name = "Buffers",
+  --   s = { "<cmd>BufferLineSortByTabs<cr>", "sort" },
+  -- },
+  i = {
     name = "Diagnostics",
     f = { "<cmd>Telescope diagnostics<cr>", "find (Telescope)" },
     p = { "<cmd>Lspsaga show_line_diagnostics<cr>", "preview" },
     n = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next" },
     l = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "last" },
   },
+  d = {
+    name = "Debugger",
+    b = { "<cmd>DapToggleBreakpoint<cr>", "toggle breakpoint" },
+    c = { "<cmd>DapContinue<cr>", "continue" },
+  },
   t = {
     name = "Tests", -- test.vim - save and run specs
+    icon = "󰤑",
     t = { ":w<cr> :TestFile<cr>", "file" },
     l = { ":w<cr> :TestLast<cr>", "last" },
     n = { ":w<cr> :TestNearest<cr>", "nearest" },
@@ -189,6 +201,7 @@ local n_mappings = {
   },
   n = {
     name = "Nvim-Tree",
+    icon = "",
     t = { ":NvimTreeToggle<cr>", "toggle" },
     f = { ":NvimTreeFindFile<cr>", "toggle" },
   },
@@ -203,11 +216,13 @@ local n_mappings = {
   },
   l = {
     name = "LSP",
+    icon ="",
     r = { "<cmd>Lspsaga rename<cr>", "Rename" },
     o = { "<cmd>Format<cr>", "Format" },
   },
   r = {
     name = "Rails",
+    icon = "",
     l = { "<cmd>lua require('ror.commands').list_commands()<CR>", "List commands" },
     t = {
       name = "Tests",
@@ -216,6 +231,12 @@ local n_mappings = {
       c = { "<cmd>lua require('ror.test').clear()<CR>", "clear" },
     }
   },
+  c = {
+    name = "Copilot Chat",
+    icon = "",
+    c = { "<cmd>CopilotChatToggle<CR>", "Chat Toggle" },
+    r = { "<cmd>CopilotChatReset<CR>", "Chat Reset" },
+  },
   u = { "<cmd>UndotreeToggle<cr> <cmd>UndotreeFocus<cr>", "Undotree" },
   -- Rapid editing/sourcing of init.vim
   ["so"] = { ":source $MYVIMRC<cr>", "source init.vim" },
@@ -223,8 +244,6 @@ local n_mappings = {
   -- Lazy js
   [";"] = { "m`A;<Esc>``", "Append `;` at eol" },
   [","] = { "m`A,<Esc>``", "Append `,` at eol" },
-  -- Code actions
-  ["ca"] = { "<cmd>Lspsaga code_action<cr>", "Code Actions" },
   -- Debug
   ["-"] = { "op '🤟' * 50<esc>", "Insert ruby puts" },
 }
@@ -241,6 +260,11 @@ local which_key_v_opts = {
 
 local v_mappings = {
   p = { '"_dP', "paste (keep on top)" },
+  c = {
+    name = "Copilot",
+    e = { "<cmd>CopilotChatExplain<CR>", "Explain" },
+    o = { "<cmd>CopilotChatOptimize<CR>", "Chat Optimize" },
+  }
 }
 
 which_key.register(n_mappings, which_key_n_opts)
@@ -248,4 +272,3 @@ which_key.register(v_mappings, which_key_v_opts)
 
 -- ===================== Plugins defaults =====================
 require("codewindow").apply_default_keybinds()
-require("leap").set_default_keymaps()

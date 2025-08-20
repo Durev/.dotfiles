@@ -93,6 +93,14 @@ cmp.setup({
   },
 })
 
+-- -- cmp setup for vim-dadbod
+-- cmp.setup.filetype({ "sql" }, {
+--   sources = {
+--     { name = "vim-dadbod-completion" },
+--     { name = "buffer" }
+--   }
+-- })
+
 -- ===== luasnip =====
 local ls = require("luasnip")
 -- local types = require "luasnip.util.types"
@@ -146,3 +154,8 @@ require("copilot").setup({
 })
 
 require("copilot_cmp").setup()
+
+-- Copilot Chat
+require("CopilotChat").setup {
+  debug = false, -- Enable debugging
+}

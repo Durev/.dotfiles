@@ -11,8 +11,11 @@ colorscheme material
 " default background
 highlight Normal guibg=#1e272e
 
+" floats
+highlight NormalFloat guibg=#192127
+
 " windows separator
-highlight VertSplit guifg=#374855
+highlight WinSeparator guifg=#374855
 
 " The JSON standard does not support comments (by design)
 " So the default highlight is a bit aggressive for my poor eyes
@@ -26,6 +29,19 @@ highlight CursorLineNr guifg=#BDC3C7
 
 " visual mode selection colour
 highlight Visual guifg=none guibg=#0C4A6E gui=none
+
+" diagnostics
+" highlight DiagnosticError guibg=#1e272e
+" highlight DiagnosticWarn guibg=#1e272e
+" highlight DiagnosticInfo guibg=#1e272e
+" highlight DiagnosticHint guibg=#1e272e
+" highlight DiagnosticOk guibg=#1e272e
+
+" highlight DiagnosticFloatingError guibg=#1e272e
+" highlight DiagnosticFloatingWarn guibg=#1e272e
+" highlight DiagnosticFloatingInfo guibg=#1e272e
+" highlight DiagnosticFloatingHint guibg=#1e272e
+" highlight DiagnosticFloatingOk guibg=#1e272e
 
 " gitsigns colors
 highlight GitSignsDelete guifg=#E74C3C
@@ -100,3 +116,6 @@ highlight TreesitterContextLineNumber guifg=#3498db
 
 " NvimTree
 highlight NvimTreeNormal guibg=#192127
+
+" Lazy
+highlight LazyNormal guibg=#192127
