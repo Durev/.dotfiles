@@ -10,6 +10,7 @@ alias gm="git merge"
 alias gst="git status -sb"
 alias gdfc="git diff --cached"
 alias glg="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias glg10="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -10"
 alias gw="git worktree"
 
 # github cli

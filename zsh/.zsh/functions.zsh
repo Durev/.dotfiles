@@ -126,7 +126,7 @@ rbma() {
 
 # rebase interative with autosquash on current version of main/master
 riama() {
-  git rebase -i --autosquash --no-edit origin/$(main_or_master)
+  git rebase -i --autosquash origin/$(main_or_master)
 }
 
 # commit the staged changes as a fixup using fzf to select the commit
