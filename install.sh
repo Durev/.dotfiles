@@ -3,11 +3,16 @@
 # - Installs Homebrew
 # - Installs packages from Brewfile
 # - Installs rbenv and latest stable Ruby, sets global, installs bundler
-# - Configures iTerm2 to load preferences from repo; installs dynamic profile and remaps ⌘P -> Ctrl-P
+# - Configures iTerm2 to load preferences from repo
+# - Configures macOS keyboard settings
 # - Installs fonts via Brewfile
 # - Symlinks config with GNU stow
 # - Ensures lf previewer is executable
 # - Idempotent and logged
+#
+# WARNING: Do not run this script from within iTerm2!
+# This script will quit iTerm2 to configure its preferences properly.
+# Run from Terminal.app or another terminal emulator instead.
 
 set -euo pipefail
 
@@ -122,111 +127,89 @@ configure_iterm2_prefs() {
     log "iTerm2 app detected."
   fi
 
+  # Check if iTerm is currently running and force quit if needed
+  if pgrep -f "iTerm" >/dev/null 2>&1; then
+    warn "iTerm2 is currently running. Forcing quit to ensure preferences apply properly..."
+    osascript -e 'tell application "iTerm2" to quit' 2>/dev/null || true
+    sleep 2
+    # Kill any remaining iTerm processes
+    pkill -f "iTerm" 2>/dev/null || true
+    sleep 1
+    log "iTerm2 has been quit. Preferences will now be configured."
+  fi
+
   # Point iTerm to load preferences from repo
   log "Configuring iTerm2 to load preferences from ${DOTFILES_DIR}/iTerm"
-  defaults write com.googlecode.iterm2 PrefsCustomFolder -string "${DOTFILES_DIR}/iTerm"
-  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
-  log "iTerm2 preferences folder set. Some settings may apply after iTerm restart."
 
-  # Install/refresh dynamic profile
-  local dp_dir="${HOME}/Library/Application Support/iTerm2/DynamicProfiles"
-  local repo_profile="${DOTFILES_DIR}/iTerm/profile.json"
-  local out_profile="${dp_dir}/dotfiles-profile.json"
+  # Kill any remaining preference synchronization
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool false
+  defaults write com.googlecode.iterm2 PrefsCustomFolder -string ""
+  sleep 1
 
-  mkdir -p "${dp_dir}"
-
-  if [[ ! -f "${repo_profile}" ]]; then
-    warn "Dynamic profile source not found at ${repo_profile}; skipping profile installation."
-    return 0
+  # Now set the correct preferences
+  if ! defaults write com.googlecode.iterm2 PrefsCustomFolder -string "${DOTFILES_DIR}/iTerm"; then
+    error "Failed to set PrefsCustomFolder. Permissions issue."
+    return 1
+  fi
+  if ! defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true; then
+    error "Failed to set LoadPrefsFromCustomFolder. Permissions issue."
+    return 1
   fi
 
-  # Read source profile content
-  local src
-  src="$(cat "${repo_profile}")"
+  # Force preferences synchronization
+  defaults write com.googlecode.iterm2 NoSyncSuppressRestartAnnouncement -bool true
 
-  # Determine if source already a dynamic profiles container (has top-level "Profiles")
-  local prepared
-  if printf "%s" "${src}" | grep -q '"Profiles"'; then
-    prepared="${src}"
+  # Verify the settings were applied
+  local actual_folder actual_load
+  actual_folder="$(defaults read com.googlecode.iterm2 PrefsCustomFolder 2>/dev/null || echo "UNSET")"
+  actual_load="$(defaults read com.googlecode.iterm2 LoadPrefsFromCustomFolder 2>/dev/null || echo "UNSET")"
+
+  if [[ "${actual_folder}" == "${DOTFILES_DIR}/iTerm" && "${actual_load}" == "1" ]]; then
+    log "iTerm2 preferences configured successfully."
+    log "Launch iTerm2 to load your custom profile with correct colors and font."
+    log "The 'Durev' profile should be automatically selected with dark background (#001e26)."
   else
-    # Wrap single profile dict into a dynamic profiles container
-    prepared=$(printf '{ "Profiles": [ %s ] }' "${src}")
+    warn "iTerm2 preference settings may not have applied correctly:"
+    warn "  Expected PrefsCustomFolder: ${DOTFILES_DIR}/iTerm"
+    warn "  Actual PrefsCustomFolder: ${actual_folder}"
+    warn "  Expected LoadPrefsFromCustomFolder: 1"
+    warn "  Actual LoadPrefsFromCustomFolder: ${actual_load}"
+    warn "Try re-running this script."
   fi
+}
 
-  # Ensure the Keyboard Map contains mapping for Command-P -> Ctrl-P
-  # Key: "0x23-0x100000" => Action 11 (send text), Text "0x10" (Ctrl-P)
-  if printf "%s" "${prepared}" | grep -q '"0x23-0x100000"'; then
-    log "Cmd-P to Ctrl-P mapping already present in dynamic profile."
-  else
-    # If empty Keyboard Map, replace {} with the mapping
-    if printf "%s" "${prepared}" | grep -Eq '"Keyboard Map"\s*:\s*\{\s*\}'; then
-      prepared="$(printf "%s" "${prepared}" | sed -E \
-        's/"Keyboard Map"\s*:\s*\{\s*\}/"Keyboard Map" : { "0x23-0x100000" : { "Action" : 11, "Text" : "0x10" } }/')"
-    # Else insert at the beginning of the Keyboard Map dict
-    elif printf "%s" "${prepared}" | grep -q '"Keyboard Map"'; then
-      prepared="$(printf "%s" "${prepared}" | awk '
-        BEGIN { inserted=0 }
-        {
-          if (!inserted && match($0, /"Keyboard Map"[[:space:]]*:[[:space:]]*{/)) {
-            # Print the line, then insert our mapping line followed by a comma
-            print $0
-            print "    \"0x23-0x100000\" : { \"Action\" : 11, \"Text\" : \"0x10\" },"
-            inserted=1
-          } else {
-            print $0
-          }
-        }')"
-    else
-      # No Keyboard Map found: insert one at the beginning of the profile object
-      prepared="$(printf "%s" "${prepared}" | awk '
-        BEGIN { inserted=0 }
-        {
-          if (!inserted && $0 ~ /^{/) {
-            print "{"
-            print "  \"Keyboard Map\" : { \"0x23-0x100000\" : { \"Action\" : 11, \"Text\" : \"0x10\" } },"
-            inserted=1
-          } else {
-            print $0
-          }
-        }')"
-    fi
-    log "Ensured Cmd-P to Ctrl-P mapping in dynamic profile."
-  fi
+# ————————————————————————————————————————————————————————————————————————
+# macOS keyboard settings
+# ————————————————————————————————————————————————————————————————————————
+configure_macos_keyboard() {
+  log "Configuring macOS keyboard settings..."
 
-  # Write if changed (idempotent)
-  local tmp_out
-  tmp_out="$(mktemp)"
-  printf "%s\n" "${prepared}" > "${tmp_out}"
+  # Set fast key repeat (lower = faster; range 1-8, default ~6)
+  defaults write -g KeyRepeat -int 2
+  log "Set KeyRepeat to 2 (fast repeat speed)"
 
-  # Normalize JSON (optional) if jq exists
-  if command -v jq >/dev/null 2>&1; then
-    if jq . "${tmp_out}" >/dev/null 2>&1; then
-      jq . "${tmp_out}" > "${tmp_out}.fmt" && mv "${tmp_out}.fmt" "${tmp_out}"
-    fi
-  fi
+  # Set short initial delay before repeat starts (lower = shorter; range 10-120, default ~25)
+  defaults write -g InitialKeyRepeat -int 15
+  log "Set InitialKeyRepeat to 15 (short initial delay)"
 
-  if [[ -f "${out_profile}" ]]; then
-    if command -v shasum >/dev/null 2>&1; then
-      local new_hash old_hash
-      new_hash="$(shasum -a 256 "${tmp_out}" | awk '{print $1}')"
-      old_hash="$(shasum -a 256 "${out_profile}" | awk '{print $1}')"
-      if [[ "${new_hash}" == "${old_hash}" ]]; then
-        log "Dynamic profile already up to date at ${out_profile}"
-        rm -f "${tmp_out}"
-        return 0
-      fi
-    else
-      # Fallback naive comparison
-      if cmp -s "${tmp_out}" "${out_profile}"; then
-        log "Dynamic profile already up to date at ${out_profile}"
-        rm -f "${tmp_out}"
-        return 0
-      fi
-    fi
-  fi
+  log "Keyboard settings configured. Changes take effect for new applications."
+}
 
-  mv -f "${tmp_out}" "${out_profile}"
-  log "Installed/updated iTerm2 dynamic profile: ${out_profile}"
+# ————————————————————————————————————————————————————————————————————————
+# macOS language and locale settings
+# ————————————————————————————————————————————————————————————————————————
+configure_macos_locale() {
+  log "Configuring macOS language and locale settings..."
+
+  # Set primary language to English (UK), secondary to French (France)
+  defaults write -g AppleLanguages -array "en-GB" "fr-FR"
+  log "Set primary language to English (UK)"
+
+  # Set locale to English with France region (for date/number formatting)
+  defaults write -g AppleLocale -string "en_FR"
+  log "Set locale to en_FR (English language, France region formatting)"
+
+  log "Language and locale settings configured. Some changes may require logout/login."
 }
 
 # ————————————————————————————————————————————————————————————————————————
@@ -372,6 +355,8 @@ main() {
   ensure_homebrew
   install_brew_bundle
   configure_iterm2_prefs
+  configure_macos_keyboard
+  configure_macos_locale
   ensure_rbenv_and_ruby
   run_stow
   ensure_lf_previewer_exec
@@ -379,7 +364,7 @@ main() {
   hr
   log "Bootstrap complete."
   log "Notes:"
-  log "- If iTerm2 was open, please restart it to ensure preferences and dynamic profile are applied."
+  log "- If iTerm2 was open, please restart it to ensure preferences are applied."
   log "- If stow reported conflicts, resolve them and re-run this script safely."
   hr
 }
